@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Título de la web</title>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/apprise.css" rel="stylesheet">
+
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src="js/apprise-1.5.full.js"></script>
+
+    <style type="text/css">
+        .clsTitulo{
+            font-size: 16px;
+            display: block;
+            border-bottom: 1px solid #62CC2B;
+            text-align: center;
+            margin-bottom: 5px;
+
+        }
+
+        li{
+            list-style-type: none;
+        }
+
+         .clsEliminarElemento
+        {
+            padding: 5px;
+            border: solid 0px #ccc;
+            background: #f1f1f1 url(imagenes/eliminar.png) center no-repeat;
+            width: 20px;
+            display: inline-block;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        ul li:nth-child(odd)
+        {
+            background: #f1f1f1;
+        }
+        ul li:nth-child(even)
+        {
+            background: #fff;
+        }
+        body
+        {
+            background: #f1f1f1;
+            font: normal 13px Tahoma, Verdana, Arial, sans-serif;
+        }
+        input
+        {
+            border-radius: 5px;
+            border: solid 1px #AFADAD;
+        }
+        .clsActualizarElemento
+        {
+            padding: 5px;
+            border: solid 0px #ccc;
+            background: #f1f1f1 url(imagenes/actualizar.png) center no-repeat;
+            width: 20px;
+            display: inline-block;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .clsDesasociarElemento
+        {
+            padding: 5px;
+            border: solid 0px #ccc;
+            background: #f1f1f1 url(imagenes/desasociar.png) center no-repeat;
+            width: 20px;
+            display: inline-block;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .clsMargen{
+            margin-top: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        .clsOcultar{
+            display: none;
+
+        }
+        .clsVisble{
+            display: block;
+        }
+        .clsSeparador{
+            border:10px solid transparent;
+            border-image: url(imagenes/separador-verde.png) 30 30 round;
+
+        }
+        .clsSeparador1{
+            border:10px solid transparent;
+            border-image: url(imagenes/separador-verde1.png) 30 30 round;
+            margin-bottom: 20px;
+        }
+
+        .clsSeparador2{
+            border:10px solid transparent;
+            margin-bottom: 20px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="row clsMargen">
+        <div class="col-md-2">
+            <div class="btn-group-vertical">
+                <div class="btn-group">
+                    <button id="btnGroupVerticalDrop2" type="button" class="btn  btn-success btn-lg dropdown-toggle"
+                        data-toggle="dropdown">
+                        Categorias <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupVerticalDrop2">
+                        <li><a id="linkCrearCategoria" href="#">Crear Categoria</a></li>
+                        <li><a id="linkActualizarCategoria" href="#">Actualizar Categoria</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button id="btnGroupVerticalDrop1" type="button" class="btn btn-success btn-lg dropdown-toggle"
+                        data-toggle="dropdown">
+                        Tareas <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupVerticalDrop1">
+                        <li><a id="linkCrearTarea" href="#">Crear Tarea</a></li>
+                        <li><a id="linkActualizarTarea" href="#">Actualizar Tarea</a></li>
+                    </ul>
+                </div>
+                
+                <!--<div class="btn-group">
+                    <button id="btnGroupVerticalDrop3" type="button" class="btn btn-success  btn-lg  dropdown-toggle"
+                        data-toggle="dropdown">
+                        Tareas - Categorias <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupVerticalDrop3">
+                        <li><a id="linkAsociarCategoria" href="#">Asociar Categoria</a></li>
+                        <li><a id="linkConsultarCategoria" href="#">Consultar Categoria</a></li>
+                    </ul>
+                </div>-->
+            </div>
+        </div>
+        <div class="col-md-8 clsSeparador">
+            <div class="row clsSeparador1" >
+                
+                <div class="col-md-6">
+                    <span class="clsTitulo">CATEGORIAS</span>
+                <ul id="listaCategorias">
+                        </ul>
+                </div>
+                <div class="col-md-6">
+                    <span class="clsTitulo">TAREAS</span>
+                    <ul id="listaTareas">
+                        </ul>
+                </div>
+            </div>
+
+            <div id="divTareaGeneral">
+                        
+                        <div id="divCrearTarea"  class="clsOcultar clsSeparador2">
+                            <span class="clsTitulo">TAREAS</span>
+                            Crear Tarea
+                            <input type="text" id="txtTarea">
+                            <button id="btnCrearTarea" type="button" class="btn btn-xs btn-success">
+                                Crear</button>
+                            Estado Tarea
+                            <select id="optEstadoTarea">
+                                <option value="Activo">Activo</option>
+                                <option value="Inactivo">Inactivo</option>
+                            </select>
+                        </div>
+                        <div id="divActualizarTarea"  class="clsOcultar clsSeparador2">
+                            <span class="clsTitulo">TAREAS</span>
+                            Descripción Tarea
+                            <input type="text" id="txtEditarTarea">
+                            <button id="btnActualizarTarea" type="button" class="btn btn-xs btn-success">
+                                Actualizar</button>
+                            Estado Tarea
+                            <select id="optEditarEstadoTarea">
+                                <option value="Activo">Activo</option>
+                                <option value="Inactivo">Inactivo</option>
+                            </select>
+                        </div>
+            </div>
+            <div id="divCategoriaGeneral">
+                        <div id="divCrearCategoria"  class="clsOcultar clsSeparador2">
+                            <span class="clsTitulo">CATEGORIAS</span>
+                            Crear Categorias
+                            <input type="text" id="txtCategoria">
+                            <button id="btnCrearCategoria" type="button" class="btn btn-xs btn-success">
+                                Crear</button>
+                             Estado Categoria
+                            <select id="optEstadoCategoria">
+                                <option value="Activo">Activo</option>
+                                <option value="Inactivo">Inactivo</option>
+                            </select>
+                        </div>
+                        <div id="divActualizarCategoria"  class="clsOcultar clsSeparador2">
+                            <span class="clsTitulo">CATEGORIAS</span>
+                            Descripción Categoria
+                            <input type="text" id="txtEditarCategoria">
+                            <button id="btnActualizarCategoria" type="button" class="btn btn-xs btn-success">
+                                Actualizar</button>
+                            Estado Categoria
+                            <select id="optEditarEstadoCategoria">
+                                <option value="Activo">Activo</option>
+                                <option value="Inactivo">Inactivo</option>
+                            </select>
+                        </div>
+                        
+            </div>
+
+             <div id="divAsociacionGeneral">
+                        <div id="divAsociarCategoria"  class="clsSeparador2">
+                            <span class="clsTitulo"> ASOCIACIÓN CATEGORIAS - TAREAS </span>
+                            <button id="btn" type="button" class="btn btn-xs btn-success" display="none">
+                                cargar</button>
+                             Categorias
+                            <select id="optCategorias">
+                            </select>
+                            Tareas
+                            <select id="optTareas">
+                            </select>
+                            <button id="btnAsociar" type="button" class="btn btn-xs btn-success">
+                                Asociar</button>
+                        </div>
+                        <div id="divConsultarCategoria"  class="clsSeparador2">
+                            
+                            CONSULTAR CATEGORIA 
+                            <select id="optConsultarCategoria">
+                                <option value="0">Seleccione...</option>
+                            </select>
+                            
+                            <ul id="listaTareasXCategoria">
+                            </ul>
+                        </div>
+             </div>
+        </div>
+    </div>
+   
+
+    <script>
+        ///////////////botones menu
+        $("#linkCrearTarea").on("click",function(){
+            $("#divTareaGeneral").removeClass("clsOcultar");
+            $("#divTareaGeneral").addClass("clsVisible");
+
+            $("#divCrearTarea").removeClass("clsOcultar");
+            $("#divCrearTarea").addClass("clsVisible");
+
+            $("#divActualizarTarea").removeClass("clsVisible");
+            $("#divActualizarTarea").addClass("clsOcultar");
+
+            $("#divCategoriaGeneral").removeClass("clsVisible");
+            $("#divCategoriaGeneral").addClass("clsOcultar");
+            //$("#divAsociacionGeneral").addClass("clsOcultar");
+        });
+
+        $("#linkActualizarTarea").on("click",function(){
+            $("#divTareaGeneral").removeClass("clsOcultar");
+            $("#divTareaGeneral").addClass("clsVisible");
+
+            $("#divActualizarTarea").removeClass("clsOcultar");
+            $("#divActualizarTarea").addClass("clsVisible");
+
+            $("#divCrearTarea").removeClass("clsVisible");
+            $("#divCrearTarea").addClass("clsOcultar");
+
+            $("#divCategoriaGeneral").addClass("clsOcultar");
+            $("#divCategoriaGeneral").removeClass("clsVisible");
+
+        });
+
+
+        $("#linkCrearCategoria").on("click",function(){
+            $("#divCategoriaGeneral").removeClass("clsOcultar");
+            $("#divCategoriaGeneral").addClass("clsVisible");
+
+            $("#divCrearCategoria").removeClass("clsOcultar");
+            $("#divCrearCategoria").addClass("clsVisible");
+
+            $("#divActualizarCategoria").removeClass("clsVisible");
+            $("#divActualizarCategoria").addClass("clsOcultar");
+
+            $("#divTareaGeneral").addClass("clsOcultar");
+            $("#divTareaGeneral").removeClass("clsVisible");
+
+        });
+
+        $("#linkActualizarCategoria").on("click",function(){
+            $("#divCategoriaGeneral").removeClass("clsOcultar");
+            $("#divCategoriaGeneral").addClass("clsVisible");
+
+            $("#divCrearCategoria").removeClass("clsVisible");
+            $("#divCrearCategoria").addClass("clsOcultar");
+
+            $("#divActualizarCategoria").removeClass("clsOcultar");
+            $("#divActualizarCategoria").addClass("clsVisible");
+
+            $("#divTareaGeneral").addClass("clsOcultar");
+            $("#divTareaGeneral").removeClass("clsVisible");
+
+        });
+
+/*
+        $("#linkAsociarCategoria").on("click",function(){
+            $("#divAsociacionGeneral").removeClass("clsOcultar");
+            $("#divAsociacionGeneral").addClass("clsVisible");
+
+
+            $("#divConsultarCategoria").removeClass("clsVisible");
+            $("#divConsultarCategoria").addClass("clsOcultar");
+
+            $("#divAsociarCategoria").removeClass("clsOcultar");
+            $("#divAsociarCategoria").addClass("clsVisible");
+
+            $("#divTareaGeneral").addClass("clsOcultar");
+            $("#divCategoriaGeneral").addClass("clsOcultar");
+            
+            var texto = "";
+            $('#optCategorias').find('option').remove();
+            $("#optTareas").find('option').remove();
+            $("#optConsultarCategoria").find('option').remove();
+            $("#optConsultarCategoria").append('<option value="0">Seleccione...</option>');
+
+
+            $("#listaCategorias li").each(function() {
+                texto = $(this).data("texto");
+                $("#optCategorias").append("<option value='" + $(this).attr('id') + "'>" + texto + "</option>");
+
+                $("#optConsultarCategoria").append("<option value='" + $(this).attr('id') + "'>" + texto + "</option>");
+            });
+
+            $("#listaTareas li").each(function() {
+
+                if ($(this).attr("data-categoria") == "c") {
+                    texto = $(this).data("texto");
+                    $("#optTareas").append("<option value='" + $(this).attr('id') + "'>" + texto + "</option>");
+                }
+            });
+
+        });*/
+
+        /*$("#linkConsultarCategoria").on("click",function(){   
+            $("#divAsociacionGeneral").removeClass("clsOcultar");
+            $("#divAsociacionGeneral").addClass("clsVisible");
+
+            $("#divAsociarCategoria").removeClass("clsVisible");
+            $("#divAsociarCategoria").addClass("clsOcultar");
+
+            $("#divConsultarCategoria").removeClass("clsOcultar");
+            $("#divConsultarCategoria").addClass("clsVisible");
+
+            $("#divTareaGeneral").addClass("clsOcultar");
+            $("#divCategoriaGeneral").addClass("clsOcultar");
+        });*/
+
+        var itemLista = "";
+        $(document).ready(function() {
+
+            /////////////////////////////////////Sección de Tareas/////////////////////////////////////
+            $("#btnCrearTarea").on("click", function() {
+                var text = $("#txtTarea").val();
+                var cont = $("#listaTareas li").length + 1;
+                var estado = $("#optEstadoTarea").find('option:selected').val();
+
+                if (text == "") {
+                    apprise("<div class='alert alert-danger'>Tarea creada correctamente.</div>");
+                }
+                else {
+
+
+
+                    $("#listaTareas").append("<li id='itemTarea" + cont + "' data-texto='" + text + "' data-estado='" + estado + "' data-categoria='c'><a id='btnEliminar" + cont + "' class='clsEliminarElemento'>&nbsp;</a> <a id='btnActualizar" + cont + "' class='clsActualizarElemento'>&nbsp;</a><span>" + text + " - " + estado + "</span></li>");
+                    apprise("Tarea creada correctamente.", { 'animate': true });
+                }
+
+                $("#txtTarea").val("");
+                $("#divTareaGeneral").addClass("clsOcultar");
+                $("#divTareaGeneral").removeClass("clsVisible");
+
+                var texto = "";
+                
+                $("#optTareas").find('option').remove();
+
+                $("#listaTareas li").each(function() {
+
+                    if ($(this).attr("data-categoria") == "c") {
+                        texto = $(this).data("texto");
+                        $("#optTareas").append("<option value='" + $(this).attr('id') + "'>" + texto + "</option>");
+                    }
+                });
+
+
+            });
+
+            //Elimina tarea de la lista
+            $('#listaTareas').on('click', '.clsEliminarElemento', function() {
+                $(this).parent().remove();
+                apprise("Tarea eliminada correctamente.");
+
+                var texto = "";
+                $('#optCategorias').find('option').remove();
+                $("#optTareas").find('option').remove();
+                $("#optConsultarCategoria").find('option').remove();
+                $("#optConsultarCategoria").append('<option value="0">Seleccione...</option>');
+
+
+                $("#listaCategorias li").each(function() {
+                    texto = $(this).data("texto");
+                    $("#optCategorias").append("<option value='" + $(this).attr('id') + "'>" + texto + "</option>");
+
+                    $("#optConsultarCategoria").append("<option value='" + $(this).attr('id') + "'>" + texto + "</option>");
+                });
+
+                $("#listaTareas li").each(function() {
+
+                    if ($(this).attr("data-categoria") == "c") {
+                        texto = $(this).data("texto");
+                        $("#optTareas").append("<option value='" + $(this).attr('id') + "'>" + texto + "</option>");
+                    }
+                });
+            });
+
+            //Obtiene los datos para la actualización
+            $('#listaTareas').on('click', '.clsActualizarElemento', function() {
+                $("#txtEditarTarea").val($(this).parent().attr('data-texto'));
+                $("#optEditarEstadoTarea").val($(this).parent().attr('data-estado'));
+
+                itemLista = $(this).parent();
+                $("#divActualizarTarea").removeClass("clsOcultar");
+                $("#divActualizarTarea").addClass("clsVisible");
+
+                $("#divCrearTarea").removeClass("clsVisible");
+                $("#divCrearTarea").addClass("clsOcultar");
+
+                $("#divCategoriaGeneral").addClass("clsOcultar");
+                //$("#divAsociacionGeneral").addClass("clsOcultar");
+
+            });
+
+            //Actualiza la tarea
+            $("#btnActualizarTarea").on("click", function() {
+                $(itemLista).attr("data-texto", $("#txtEditarTarea").val());
+                $(itemLista).attr("data-estado", $("#optEditarEstadoTarea").val());
+
+                $("#listaTareas li").each(function() {
+                    if ($(this).attr("id") == $(itemLista).attr("id")) {
+                        $(this).find("span").text($("#txtEditarTarea").val() + " - " + $("#optEditarEstadoTarea").val());
+                    }
+
+                });
+                apprise("Tarea actualizada correctamente.");
+            });
+            /////////////////////////////////////Sección de Tareas/////////////////////////////////////
+
+            /////////////////////////////////////Sección de Categorias/////////////////////////////////////
+            $("#btnCrearCategoria").on("click", function() {
+                var text = $("#txtCategoria").val();
+                var cont = $("#listaCategorias li").length + 1;
+                var estado = $("#optEstadoCategoria").find('option:selected').val();
+
+                $("#listaCategorias").append("<li id='itemCategoria" + cont + "' data-texto='" + text + "' data-estado='" + estado + "'><a id='btnEliminar" + cont + "' class='clsEliminarElemento'>&nbsp;</a> <a id='btnActualizar" + cont + "' class='clsActualizarElemento'>&nbsp;</a><span>" + text + " - " + estado + "</span></li>");
+                apprise("Categoria creada correctamente.");
+                $("#txtCategoria").val("");
+                $("#divCategoriaGeneral").addClass("clsOcultar");
+                $("#divCategoriaGeneral").removeClass("clsVisible");
+
+                var texto = "";
+                $('#optCategorias').find('option').remove();
+                $("#optConsultarCategoria").find('option').remove();
+                $("#optConsultarCategoria").append('<option value="0">Seleccione...</option>');
+
+
+                $("#listaCategorias li").each(function() {
+                    texto = $(this).data("texto");
+                    $("#optCategorias").append("<option value='" + $(this).attr('id') + "'>" + texto + "</option>");
+
+                    $("#optConsultarCategoria").append("<option value='" + $(this).attr('id') + "'>" + texto + "</option>");
+                });
+
+                $("#listaTareas li").each(function() {
+
+                    if ($(this).attr("data-categoria") == "c") {
+                        texto = $(this).data("texto");
+                        $("#optTareas").append("<option value='" + $(this).attr('id') + "'>" + texto + "</option>");
+                    }
+                });
+
+            });
+
+            //Elimina categoria de la lista
+            $('#listaCategorias').on('click', '.clsEliminarElemento', function() {
+                var cate = $(this).parent().attr("id");
+                $(this).parent().remove();
+
+
+                $("#listaTareas li").each(function() {
+
+                    if ($(this).attr("data-categoria") == cate) {
+                        $(this).attr("data-categoria", "c");
+                    }
+                });
+
+                apprise("Categoria eliminada correctamente.");
+
+                var texto = "";
+                $('#optCategorias').find('option').remove();
+                $("#optTareas").find('option').remove();
+                $("#optConsultarCategoria").find('option').remove();
+                $("#optConsultarCategoria").append('<option value="0">Seleccione...</option>');
+
+
+                $("#listaCategorias li").each(function() {
+                    texto = $(this).data("texto");
+                    $("#optCategorias").append("<option value='" + $(this).attr('id') + "'>" + texto + "</option>");
+
+                    $("#optConsultarCategoria").append("<option value='" + $(this).attr('id') + "'>" + texto + "</option>");
+                });
+
+                $("#listaTareas li").each(function() {
+
+                    if ($(this).attr("data-categoria") == "c") {
+                        texto = $(this).data("texto");
+                        $("#optTareas").append("<option value='" + $(this).attr('id') + "'>" + texto + "</option>");
+                    }
+                });
+
+
+            });
+
+            //Obtiene los datos para la actualización
+            $('#listaCategorias').on('click', '.clsActualizarElemento', function() {
+                $("#txtEditarCategoria").val($(this).parent().attr('data-texto'));
+                $("#optEditarEstadoCategoria").val($(this).parent().attr('data-estado'));
+
+                itemLista = $(this).parent();
+
+                $("#divCrearCategoria").removeClass("clsVisible");
+                $("#divCrearCategoria").addClass("clsOcultar");
+
+                $("#divActualizarCategoria").removeClass("clsOcultar");
+                $("#divActualizarCategoria").addClass("clsVisible");
+
+                $("#divTareaGeneral").addClass("clsOcultar");
+                $("#divTareaGeneral").removeClass("clsVisible");
+                
+                $("#divCategoriaGeneral").removeClass("clsOcultar");
+                $("#divCategoriaGeneral").addClass("clsVisible");
+
+            });
+
+            //Actualiza la categoria
+            $("#btnActualizarCategoria").on("click", function() {
+                $(itemLista).attr("data-texto", $("#txtEditarCategoria").val());
+                $(itemLista).attr("data-estado", $("#optEditarEstadoCategoria").val());
+
+                $("#listaCategorias li").each(function() {
+                    if ($(this).attr("id") == $(itemLista).attr("id")) {
+                        $(this).find("span").text($("#txtEditarCategoria").val() + " - " + $("#optEditarEstadoCategoria").val());
+
+                    }
+
+                });
+                apprise("Categoria actualizada correctamente.");
+            });
+            /////////////////////////////////////Sección de Categoria/////////////////////////////////////
+
+            ////////////////////////////////////Sección Categoria - Tarea/////////////////////////////////
+
+            $("#btn").on("click", function() {
+                var texto = "";
+                $('#optCategorias').find('option').remove();
+                $("#optTareas").find('option').remove();
+                $("#optConsultarCategoria").find('option').remove();
+                $("#optConsultarCategoria").append('<option value="0">Seleccione...</option>');
+
+
+                $("#listaCategorias li").each(function() {
+                    texto = $(this).data("texto");
+                    $("#optCategorias").append("<option value='" + $(this).attr('id') + "'>" + texto + "</option>");
+
+                    $("#optConsultarCategoria").append("<option value='" + $(this).attr('id') + "'>" + texto + "</option>");
+                });
+
+                $("#listaTareas li").each(function() {
+
+                    if ($(this).attr("data-categoria") == "c") {
+                        texto = $(this).data("texto");
+                        $("#optTareas").append("<option value='" + $(this).attr('id') + "'>" + texto + "</option>");
+                    }
+                });
+
+
+
+            });
+
+
+            $("#btnAsociar").on("click", function() {
+                itemLista = $("#optTareas").val();
+                var cate = $("#optCategorias").val();
+                $("#" + itemLista).attr("data-categoria", cate);
+                apprise("Tarea asociada correctamente a la categoria seleccionada.");
+            });
+
+            $("#optConsultarCategoria").change(function() {
+
+                var cont = $("#listaTareasXCategoria li").length + 1;
+                $("#listaTareasXCategoria").find('li').remove();
+
+                $("#listaTareas li").each(function() {
+                    if ($(this).attr('data-categoria') == $("#optConsultarCategoria").val()) {
+                        $("#listaTareasXCategoria").append("<li id='itemTareaCategoria" + cont + "' data-texto='" + $(this).attr('data-texto') + "' data-estado='" + $(this).attr('data-estado') + "' data-categoria='" + $(this).attr('data-categoria') + "' data-tarea='" + $(this).attr('id') + "'><a id='btnDesasociar" + cont + "' class='clsDesasociarElemento'>&nbsp;</a><span>" + $(this).attr('data-texto') + "</span></li>");
+                    }
+
+                });
+
+
+            });
+
+            //Desasociar tarea de categoria
+            $('#listaTareasXCategoria').on('click', '.clsDesasociarElemento', function() {
+                $(this).parent().attr("data-categoria", "c");
+                var tar = $(this).parent().attr("data-tarea");
+                $("#" + tar).attr("data-categoria", "c");
+
+                apprise("Tarea desasociada de cataegoria correctamente.");
+
+                               var cont = $("#listaTareasXCategoria li").length + 1;
+                $("#listaTareasXCategoria").find('li').remove();
+
+                $("#listaTareas li").each(function() {
+                    if ($(this).attr('data-categoria') == $("#optConsultarCategoria").val()) {
+                        $("#listaTareasXCategoria").append("<li id='itemTareaCategoria" + cont + "' data-texto='" + $(this).attr('data-texto') + "' data-estado='" + $(this).attr('data-estado') + "' data-categoria='" + $(this).attr('data-categoria') + "' data-tarea='" + $(this).attr('id') + "'><a id='btnDesasociar" + cont + "' class='clsDesasociarElemento'>&nbsp;</a><span>" + $(this).attr('data-texto') + "</span></li>");
+                    }
+
+                });
+
+
+            });
+
+
+
+
+            ////////////////////////////////////Sección Categoria - Tarea/////////////////////////////////
+
+
+            /*$("#eliminarTarea").on("click",function(){
+            $("#listaTareas input").each(function() {
+            if($(this).is(':checked')) {  
+            $(this).remove();
+
+      }  
+            });
+
+      });*/
+
+        });
+    </script>
+
+</body>
+</html>
