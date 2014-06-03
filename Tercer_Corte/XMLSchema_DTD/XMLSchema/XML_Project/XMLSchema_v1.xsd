@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/XMLSchema_v1" xmlns:tns="http://www.example.org/XMLSchema_v1" elementFormDefault="qualified">
+
+
+    <complexType name="Curso">
+    	<sequence>
+    		<element name="Codigo_Curso" type="string"></element>
+    		<element name="Nombre_Curso" type="string"></element>
+    		<element name="Nota1" type="string"></element>
+    		<element name="Nota2" type="string"></element>
+    		<element name="Nota3" type="string"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="Estudiante">
+    	<sequence>
+    		<element name="Codigo_Estudiante" type="string"></element>
+    		<element name="Nombre_Estudiante" type="string"></element>
+    		<element name="Apellido_Estudiante" type="string"></element>
+    		<element name="Semestre" type="tns:Semestre" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <element name="eleEstudiante" type="tns:Estudiante"></element>
+    
+
+
+    <complexType name="Semestre">
+    	<sequence>
+    		<element name="Ano" type="string"></element>
+    		<element name="Cursos" type="tns:Curso" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+</schema>

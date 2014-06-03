@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Curso SYSTEM "DTD_v1.dtd" >
+<Curso>
+  <Materia>
+    <Codigo_Mat>Codigo_Mat</Codigo_Mat>
+    <Nombre_Mat>Nombre_Mat</Nombre_Mat>
+    <Decripcion_Mat>Decripcion_Mat</Decripcion_Mat>
+    <Creditos_Mat>Creditos_Mat</Creditos_Mat>
+  </Materia>
+  <Docente>
+    <Codigo_Doc>Codigo_Doc</Codigo_Doc>
+    <Nombre_Doc>Nombre_Doc</Nombre_Doc>
+    <Apellido_Doc>Apellido_Doc</Apellido_Doc>
+    <Cedula_Doc>Cedula_Doc</Cedula_Doc>
+  </Docente>
+  <Estudiante>
+    <Codigo_Est>Codigo_Est</Codigo_Est>
+    <Nombre_Est>Nombre_Est</Nombre_Est>
+    <Apellido_Est>Apellido_Est</Apellido_Est>
+    <Cedula>Cedula</Cedula>
+  </Estudiante>
+</Curso>

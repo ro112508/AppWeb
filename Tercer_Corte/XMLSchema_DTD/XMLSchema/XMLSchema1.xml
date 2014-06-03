@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eleCurso xmlns="http://www.example.org/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/XMLSchema XMLSchema.xsd ">
+  <Semestre>1</Semestre>
+  <Materias_arr>
+    <Codigo_Mat>NA12345</Codigo_Mat>
+    <Nombre_Mat>Aplicaciones Web</Nombre_Mat>
+    <Decripcion_Mat>Aplicaciones Web</Decripcion_Mat>
+    <Creditos_Mat>3</Creditos_Mat>
+  </Materias_arr>
+  <Docentes_arr>
+    <Codigo_Doc>D123456</Codigo_Doc>
+    <Nombre_Doc>Prueba Prueba</Nombre_Doc>
+    <Apellido_Doc>Prueba Prueba</Apellido_Doc>
+    <Cedula_Doc>1234567890</Cedula_Doc>
+  </Docentes_arr>
+  <Estudiante_arr>
+    <Codigo_Est>112508</Codigo_Est>
+    <Nombre_Est>Raul Andres</Nombre_Est>
+    <Apellido_Est>Ortiz Fuentes</Apellido_Est>
+    <Cedula>1016034941</Cedula>
+  </Estudiante_arr>
+  <Estudiante_arr>
+    <Codigo_Est>112505</Codigo_Est>
+    <Nombre_Est>Lina Marcela</Nombre_Est>
+    <Apellido_Est>Diaz Calderon</Apellido_Est>
+    <Cedula>1016034942</Cedula>
+  </Estudiante_arr>
+  <Estudiante_arr>
+    <Codigo_Est>112506</Codigo_Est>
+    <Nombre_Est>Luis Hernando</Nombre_Est>
+    <Apellido_Est>Ortiz Fuentes</Apellido_Est>
+    <Cedula>1016034941</Cedula>
+  </Estudiante_arr>
+</eleCurso>

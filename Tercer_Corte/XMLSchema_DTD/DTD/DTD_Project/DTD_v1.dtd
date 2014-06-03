@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT Curso (Materia,Docente,Estudiante*)>
+
+<!ELEMENT Materia (Codigo_Mat,Nombre_Mat,Decripcion_Mat,Creditos_Mat)>    
+<!ELEMENT Codigo_Mat (#PCDATA)>
+<!ELEMENT Nombre_Mat (#PCDATA)>
+<!ELEMENT Decripcion_Mat (#PCDATA)>
+<!ELEMENT Creditos_Mat (#PCDATA)>
+
+<!ELEMENT Docente (Codigo_Doc,Nombre_Doc,Apellido_Doc,Cedula_Doc)>
+<!ELEMENT Codigo_Doc (#PCDATA)>
+<!ELEMENT Nombre_Doc (#PCDATA)>
+<!ELEMENT Apellido_Doc (#PCDATA)>
+<!ELEMENT Cedula_Doc (#PCDATA)>
+
+<!ELEMENT Estudiante (Codigo_Est,Nombre_Est,Apellido_Est,Cedula)>
+<!ELEMENT Codigo_Est (#PCDATA)>
+<!ELEMENT Nombre_Est (#PCDATA)>
+<!ELEMENT Apellido_Est (#PCDATA)>
+<!ELEMENT Cedula (#PCDATA)>

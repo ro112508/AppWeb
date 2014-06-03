@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/XMLSchema" xmlns:tns="http://www.example.org/XMLSchema" elementFormDefault="qualified">
+
+    <complexType name="Materia">
+    	<sequence>
+    		<element name="Codigo_Mat" type="string"></element>
+    		<element name="Nombre_Mat" type="string"></element>
+    		<element name="Decripcion_Mat" type="string"></element>
+    		<element name="Creditos_Mat" type="int"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="Docente">
+    	<sequence>
+    		<element name="Codigo_Doc" type="string"></element>
+    		<element name="Nombre_Doc" type="string"></element>
+    		<element name="Apellido_Doc" type="string"></element>
+    		<element name="Cedula_Doc" type="int"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="Cursos">
+    	<sequence>
+    		<element name="Semestre" type="int"></element>
+    		<element name="Materias_arr" type="tns:Materia" maxOccurs="1" minOccurs="1"></element>
+    		<element name="Docentes_arr" type="tns:Docente" maxOccurs="1" minOccurs="1"></element>
+    		<element name="Estudiante_arr" type="tns:Estudiante" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+
+    </complexType>
+
+    <complexType name="Estudiante">
+    	<sequence>
+    		<element name="Codigo_Est" type="string"></element>
+    		<element name="Nombre_Est" type="string"></element>
+    		<element name="Apellido_Est" type="string"></element>
+    		<element name="Cedula" type="int"></element>
+    	</sequence>
+    </complexType>
+
+    <element name="eleCurso" type="tns:Cursos"></element>
+</schema>

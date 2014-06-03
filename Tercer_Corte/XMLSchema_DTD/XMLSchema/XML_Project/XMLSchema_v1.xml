@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eleEstudiante xmlns="http://www.example.org/XMLSchema_v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/XMLSchema_v1 XMLSchema_v1.xsd ">
+  <Codigo_Estudiante>8q2347263</Codigo_Estudiante>
+  <Nombre_Estudiante>Nombre_Estudiante</Nombre_Estudiante>
+  <Apellido_Estudiante>Apellido_Estudiante</Apellido_Estudiante>
+  <Semestre>
+    <Ano>2014</Ano>
+    <Cursos>
+      <Codigo_Curso>8237492184</Codigo_Curso>
+      <Nombre_Curso>Nombre_Curso</Nombre_Curso>
+      <Nota1>1</Nota1>
+      <Nota2>2</Nota2>
+      <Nota3>3</Nota3>
+    </Cursos>
+  </Semestre>
+</eleEstudiante>
