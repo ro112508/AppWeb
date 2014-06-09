@@ -1,0 +1,447 @@
+<!doctype html>
+
+<html>
+  
+  <head>
+    <title>Justified Nav</title>
+    <meta name="viewport" content="width=device-width">
+	<meta charset="UTF-8">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+        <script type="text/javascript">
+      function descargarArchivo(contenidoEnBlob, nombreArchivo) {
+          //creamos un FileReader para leer el Blob
+          var reader = new FileReader();
+          //Definimos la función que manejará el archivo
+          //una vez haya terminado de leerlo
+          reader.onload = function (event) {
+            //Usaremos un link para iniciar la descarga 
+            var save = document.createElement('a');
+            save.href = event.target.result;
+            save.target = '_blank';
+            //Truco: así le damos el nombre al archivo 
+            save.download = nombreArchivo || 'archivo.dat';
+            var clicEvent = new MouseEvent('click', {
+              'view': window,
+              'bubbles': true,
+              'cancelable': true
+            });
+            //Simulamos un clic del usuario
+            //no es necesario agregar el link al DOM.
+            save.dispatchEvent(clicEvent);
+            //Y liberamos recursos...
+            (window.URL || window.webkitURL).revokeObjectURL(save.href);
+          };
+          //Leemos el blob y esperamos a que dispare el evento "load"
+          reader.readAsDataURL(contenidoEnBlob);
+      };
+
+      function obtenerDatos() {
+                return {
+            nombre: document.getElementById('txtNomMateria').value,
+            descripcion: document.getElementById('txtDescripcion').value,
+            codMateria: document.getElementById('txtCodMateria').value
+          };
+      };
+
+      /*function escaparXML(cadena) {
+         if (typeof cadena !== 'string') {
+            return '';
+          };
+          cadena = cadena.replace('&', '&amp;')
+                         .replace('<', '&lt;')
+                         .replace('>', '&gt;')
+                         .replace('"', '&quot;');
+          return cadena;
+      };*/
+
+      function generarTexto(datos) {
+         var texto = [];
+          texto.push('Datos Personales:\n');
+          texto.push('Nombre: ');
+          texto.push(datos.nombre);
+          texto.push('\n');
+          texto.push('Teléfono: ');
+          texto.push(datos.telefono);
+          texto.push('\n');
+          texto.push('Fecha: ');
+          texto.push(datos.fecha);
+          texto.push('\n');
+          //El constructor de Blob requiere un Array en el primer 
+          //parámetro así que no es necesario usar toString. El 
+          //segundo parámetro es el tipo MIME del archivo
+          return new Blob(texto, {
+            type: 'text/plain'
+          });
+      };
+      
+      function generarXml(datos) {
+          var texto = [];
+          texto.push('<?xml version="1.0" encoding="UTF-8" ?>\n');
+          texto.push('<datos>\n');
+          texto.push('\t<CodigoMateria>');
+          texto.push(datos.codMateria);
+          texto.push('</CodigoMateria>\n');
+          texto.push('\t<NombreMateria>');
+          texto.push(datos.nombre);
+          texto.push('</NombreMateria>\n');
+          texto.push('\t<DescripcionMateria>');
+          texto.push(datos.descripcion);
+          texto.push('</DescripcionMateria>\n');
+          texto.push('</datos>');
+          //No olvidemos especificar el tipo MIME correcto :)
+          return new Blob(texto, {
+              type: 'application/xml'
+          });
+      };
+
+      window.addEventListener('DOMContentLoaded', function(){
+ 
+        document.getElementById('btnGuardarMateria').addEventListener('click', function () {
+          var datos = obtenerDatos();
+          descargarArchivo(generarXml(datos), 'archivo.xml');
+        }, false);
+ 
+        /*document.getElementById('boton-txt').addEventListener('click', function () {
+          var datos = obtenerDatos();
+          descargarArchivo(generarTexto(datos), 'archivo.txt');
+        }, false);*/
+ 
+      }, false);
+    </script>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    
+
+    <script src="jquery-ui.js"></script>
+
+  <link rel="stylesheet" href="jquery-ui.css">
+
+    <style type="text/css">
+      body {
+        padding-top: 20px;
+      }
+      .footer {
+        border-top: 1px solid #eee;
+        margin-top: 40px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+      }
+      /* Main marketing message and sign up button */
+      .jumbotron {
+        text-align: center;
+        background-color: transparent;
+      }
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+      /* Customize the nav-justified links to be fill the entire space of the .navbar */
+      .nav-justified {
+        background-color: #eee;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      .nav-justified > li > a {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        color: #777;
+        font-weight: bold;
+        text-align: center;
+        border-bottom: 1px solid #d5d5d5;
+        background-color: #e5e5e5;
+        /* Old browsers */
+        background-repeat: repeat-x;
+        /* Repeat the gradient */
+        background-image: -moz-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+        /* FF3.6+ */
+        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f5f5f5), color-stop(100%, #e5e5e5));
+        /* Chrome,Safari4+ */
+        background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+        /* Chrome 10+,Safari 5.1+ */
+        background-image: -ms-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+        /* IE10+ */
+        background-image: -o-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+        /* Opera 11.10+ */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#e5e5e5', GradientType=0);
+        /* IE6-9 */
+        background-image: linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+        /* W3C */
+      }
+      .nav-justified > .active > a, .nav-justified > .active > a:hover, .nav-justified > .active > a:focus {
+        background-color: #ddd;
+        background-image: none;
+        box-shadow: inset 0 3px 7px rgba(0, 0, 0, .15);
+      }
+      .nav-justified > li:first-child > a {
+        border-radius: 5px 5px 0 0;
+      }
+      .nav-justified > li:last-child > a {
+        border-bottom: 0;
+        border-radius: 0 0 5px 5px;
+      }
+      @media(min-width: 768px) {
+        .nav-justified {
+          max-height: 52px;
+        }
+        .nav-justified > li > a {
+          border-left: 1px solid #fff;
+          border-right: 1px solid #d5d5d5;
+        }
+        .nav-justified > li:first-child > a {
+          border-left: 0;
+          border-radius: 5px 0 0 5px;
+        }
+        .nav-justified > li:last-child > a {
+          border-radius: 0 5px 5px 0;
+          border-right: 0;
+        }
+      }
+      /* Responsive: Portrait tablets and up */
+      @media screen and(min-width: 768px) {
+        /* Remove the padding we set earlier */
+        .masthead, .marketing, .footer {
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
+      .form-signin {
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;
+      }
+      .form-signin .form-signin-heading, .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+      .form-signin .checkbox {
+        font-weight: normal;
+      }
+      .form-signin .form-control {
+        position: relative;
+        font-size: 16px;
+        height: auto;
+        padding: 10px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        margin-top:10px;
+      }
+      .form-signin .form-control:focus {
+        z-index: 2;
+      }
+      .form-signin input[type="text"] {
+        margin-bottom: -1px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+      .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+
+      .ui-dialog .ui-state-error { padding: .3em; }
+      .validateTips { border: 1px solid transparent; padding: 0.3em; }
+
+    </style>
+    <script>
+
+
+
+
+
+    function almacenar(){
+    if (typeof(Storage) != "undefined")
+  {
+    // Store an object instead of a string
+localStorage.setItem("lastname", "Smith");
+alert(localStorage.getItem("lastname")); // string
+ 
+// Store an integer instead of a string
+/*localStorage.setItem('key', 1);
+alert(typeof localStorage.getItem('key')); // string
+ 
+// Store an object using JSON
+localStorage.setItem('key', JSON.stringify({name: 'value'}));
+alert(JSON.parse(localStorage.getItem('key')).name); // value*/
+}
+else{
+  alert("Error");
+
+}
+}
+    </script>
+
+
+        <script>
+  $(function() {
+
+    $( "#dialog-confirm" ).dialog({
+      autoOpen: false,
+      resizable: false,
+      height:150,
+      modal: true,
+      buttons: {
+        "Ok": function() {
+          $("#btnGuardarMateria").removeClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-focus");
+          $("#txtNomMateria").val("");
+          $("#txtDescripcion").val("");
+          $("#txtCodMateria").val("");
+		  
+		  almacenar();
+
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+
+    var materia = $( "#txtNomMateria" ),
+      descripcion = $( "#txtDescripcion" ),
+      codigo = $( "#txtCodMateria" ),
+      allFields = $( [] ).add( materia ).add( descripcion ).add( codigo ),
+      tips = $( ".validateTips" );
+
+      var id;
+ 
+    function updateTips( t ) {
+      tips
+        .text( t )
+        .addClass( "ui-state-highlight" );
+      setTimeout(function() {
+        tips.removeClass( "ui-state-highlight", 1500 );
+      }, 500 );
+    }
+ 
+    function checkLength( o, n, min, max ) {
+      if ( o.val().length > max || o.val().length < min ) {
+        o.addClass( "ui-state-error" );
+        updateTips( "La longitud del campo " + n + " debe ser mayor a " +
+          min + " y menor a " + max + "." );
+        return false;
+      } else {
+        return true;
+      }
+    }
+ 
+    function checkRegexp( o, regexp, n ) {
+      if ( !( regexp.test( o.val() ) ) ) {
+        o.addClass( "ui-state-error" );
+        updateTips( n );
+        return false;
+      } else {
+        return true;
+      }
+    }
+ 
+
+    $("#btnGuardarMateria").button()
+      .click(function() {
+var bValid = true;
+
+          allFields.removeClass( "ui-state-error" );
+ 
+          bValid = bValid && checkLength( materia, "Materia", 10, 50 );
+          bValid = bValid && checkLength( descripcion, "Descripcion", 10, 80 );
+          bValid = bValid && checkLength( codigo, "Codigo", 5, 10 );
+ 
+          bValid = bValid && checkRegexp( materia, /^[a-zA-Z\s]*$/i, "El nombre de la materia solo puede contener letras." );
+         
+          bValid = bValid && checkRegexp( descripcion, /^[a-zA-Z0-9\s]*$/, "La descripción solo puede contener numeros y letras." );
+
+          bValid = bValid && checkRegexp( codigo, /^([a-zA-Z])+([0-9])+$/, "El código de la materia solo puede contener numeros y letras." );
+ 
+          if ( bValid ) {
+            $("#lblMat" + id).text($("#txtNomMateria").val()); 
+            $("#lblDes" + id).text($("#txtDescripcion").val());
+            $("#lblCod" + id).text($("#txtCodMateria").val());
+            
+            if($("#chkEstado").is(':checked')) {  
+                $("#lblEst" + id).attr('checked',true);
+            }else{
+                $("#lblEst" + id).attr('checked',false);    
+            }
+
+            tips.text("");
+
+            $( "#dialog-confirm" ).dialog( "open" );
+
+          }
+        }
+        );
+
+$("div.ui-widget-header").addClass("btn-success");
+$("div.ui-widget-header").removeClass("ui-widget-header");
+           $("#btnGuardarMateria").removeClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only");
+  });
+
+    </script>
+  </head>
+  
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <h3 class="text-muted">Proyectos FUSM</h3>
+        <ul class="nav nav-justified">
+         <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Inicio <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Perfil</a></li>
+				  <li><a href="login.html">Salir</a></li>
+                </ul>
+           </li>
+           <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Materia <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="crearMaterias.html">Crear</a></li>
+                  <li><a href="consultarMaterias.html">Consultar</a></li>
+                  <li><a href="asociacionMateriasDocente.html">Asociar a Docente</a></li>
+                </ul>
+          </li>      
+          <li>
+            <a href="crearProyecto.html">Proyecto</a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Docente <b class="caret"></b></a>	
+              <ul class="dropdown-menu">
+                  <li><a href="crearDocente.html">Crear</a></li>
+                  <li><a href="consultarDocente.html">Consultar</a></li>
+
+                </ul>
+          </li>
+          <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ayuda <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Tutorial</a></li>
+                  <li><a href="#">Acerca de</a></li>
+                </ul>
+          </li>
+        </ul>
+      </div>
+    
+      <form class="form-signin">
+        <h3 class="text-muted text-center">Creación de Materias</h3>
+         <p class="validateTips"></p>
+        <input type="text" class="form-control" required="required" placeholder="Codigo" id="txtCodMateria">
+
+        <input type="text" class="form-control" required="required" placeholder="Nombre" id="txtNomMateria">
+
+        <textarea type="textDescripcion" id="txtDescripcion" class="form-control" placeholder="Descripción"></textarea>
+        
+        <br>
+        <input type="checkbox" value="true"> Activo  <input type="checkbox" value="true"> Inactivo
+            <p></p>
+            <center>
+              <button type="button" id="btnGuardarMateria" class="btn btn-success margen" >
+                <span class="glyphicon glyphicon-floppy-disk"></span> Guardar</button>
+            </center>
+      </form>
+
+      <div id="dialog-confirm" title="Proyectos FUSM">
+        Operación terminada con exito.
+</div>
+
+    </div>
+  </body>
+</html>

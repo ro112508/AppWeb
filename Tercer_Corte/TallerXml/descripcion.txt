@@ -1,0 +1,3 @@
+Profe, genere este ejemplo sobre la pagina de creacion 
+de materias de nuestro proyecto, con una estructura
+simple de xml para una materia.
