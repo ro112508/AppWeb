@@ -1,0 +1,531 @@
+<!doctype html>
+<html>
+<head>
+    <title>Justified Nav</title>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="jquery-ui.js"></script>
+    <link rel="stylesheet" href="jquery-ui.css">
+    <style type="text/css">
+        body
+        {
+            padding-top: 20px;
+        }
+        .footer
+        {
+            border-top: 1px solid #eee;
+            margin-top: 40px;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+        /* Main marketing message and sign up button */
+        .jumbotron
+        {
+            text-align: center;
+            background-color: transparent;
+        }
+        .jumbotron .btn
+        {
+            font-size: 21px;
+            padding: 14px 24px;
+        }
+        /* Customize the nav-justified links to be fill the entire space of the .navbar */
+        .nav-justified
+        {
+            background-color: #eee;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .nav-justified > li > a
+        {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            color: #777;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 1px solid #d5d5d5;
+            background-color: #e5e5e5; /* Old browsers */
+            background-repeat: repeat-x; /* Repeat the gradient */
+            background-image: -moz-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%); /* FF3.6+ */
+            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f5f5f5), color-stop(100%, #e5e5e5)); /* Chrome,Safari4+ */
+            background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%); /* Chrome 10+,Safari 5.1+ */
+            background-image: -ms-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%); /* IE10+ */
+            background-image: -o-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%); /* Opera 11.10+ */
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#e5e5e5', GradientType=0); /* IE6-9 */
+            background-image: linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%); /* W3C */
+        }
+        .nav-justified > .active > a, .nav-justified > .active > a:hover, .nav-justified > .active > a:focus
+        {
+            background-color: #ddd;
+            background-image: none;
+            box-shadow: inset 0 3px 7px rgba(0, 0, 0, .15);
+        }
+        .nav-justified > li:first-child > a
+        {
+            border-radius: 5px 5px 0 0;
+        }
+        .nav-justified > li:last-child > a
+        {
+            border-bottom: 0;
+            border-radius: 0 0 5px 5px;
+        }
+        @media (min-width: 768px)
+        {
+            .nav-justified
+            {
+                max-height: 52px;
+            }
+            .nav-justified > li > a
+            {
+                border-left: 1px solid #fff;
+                border-right: 1px solid #d5d5d5;
+            }
+            .nav-justified > li:first-child > a
+            {
+                border-left: 0;
+                border-radius: 5px 0 0 5px;
+            }
+            .nav-justified > li:last-child > a
+            {
+                border-radius: 0 5px 5px 0;
+                border-right: 0;
+            }
+        }
+        /* Responsive: Portrait tablets and up */
+        @media screen and(min-width: 768px)
+        {
+            /* Remove the padding we set earlier */
+            .masthead, .marketing, .footer
+            {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+        .form-signin
+        {
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+        .form-signin .form-signin-heading, .form-signin .checkbox
+        {
+            margin-bottom: 10px;
+        }
+        .form-signin .checkbox
+        {
+            font-weight: normal;
+        }
+        .form-signin .form-control
+        {
+            position: relative;
+            font-size: 16px;
+            height: auto;
+            padding: 10px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            margin-top: 10px;
+        }
+        .form-signin .form-control:focus
+        {
+            z-index: 2;
+        }
+        .form-signin input[type="text"]
+        {
+            margin-bottom: -1px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .form-signin input[type="password"]
+        {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+        
+        .ui-dialog .ui-state-error
+        {
+            padding: .3em;
+        }
+        .validateTips
+        {
+            border: 1px solid transparent;
+            padding: 0.3em;
+        }
+    </style>
+    <script>
+        
+        var operacion = 0;
+        var json_list  = { };
+        var obj = "";
+        var xmlDoc;
+
+        function leer(){
+            var objecto = xmlToJson("ProAulaFUSM.xml");
+        }
+
+        function xmlToJson( xml ) { 
+
+            if (operacion ==0){
+
+                 if (window.XMLHttpRequest)
+                  {// code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp=new XMLHttpRequest();
+                  }
+                else
+                  {// code for IE6, IE5
+                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                  }
+
+                xmlhttp.open("GET",xml,false);
+                xmlhttp.send();
+                xmlDoc=xmlhttp.responseXML; 
+
+                operacion = 1;
+            }
+            
+            x=xmlDoc.getElementsByTagName("Materias");
+
+            var index = 1;
+    
+            for (var i = 0; i < (x.length - 1); i++) {
+                obj = "Materias" + index;
+                json_list[obj] = { };
+                json_list[obj].Id_Materia  = x[i].getElementsByTagName("Id_Materia")[0].childNodes[0].nodeValue;
+                json_list[obj].Codigo_Materia  = x[i].getElementsByTagName("Codigo_Materia")[0].childNodes[0].nodeValue;
+                json_list[obj].Nombre_Materia  = x[i].getElementsByTagName("Nombre_Materia")[0].childNodes[0].nodeValue;
+                json_list[obj].Des_Materia  = x[i].getElementsByTagName("Des_Materia")[0].childNodes[0].nodeValue;
+                json_list[obj].Estado_Materia  = x[i].getElementsByTagName("Estado_Materia")[0].childNodes[0].nodeValue;
+                index = index + 1;
+            };
+
+            x=xmlDoc.getElementsByTagName("Docentes");
+            index = 1;
+
+            for(var i = 0; i <= (x.length - 1); i++){
+                obj = "Docentes" + index;
+                json_list[obj] = { };
+                json_list[obj].Id_Docente = x[i].getElementsByTagName("Id_Docente")[0].childNodes[0].nodeValue;
+                json_list[obj].Nombre_Docente = x[i].getElementsByTagName("Nombre_Docente")[0].childNodes[0].nodeValue;
+                json_list[obj].Apellido_Docente = x[i].getElementsByTagName("Apellido_Docente")[0].childNodes[0].nodeValue;
+                json_list[obj].Telefono_Docente = x[i].getElementsByTagName("Telefono_Docente")[0].childNodes[0].nodeValue;
+                json_list[obj].Email_Docente = x[i].getElementsByTagName("Email_Docente")[0].childNodes[0].nodeValue;
+                json_list[obj].Perfil_Docente = x[i].getElementsByTagName("Perfil_Docente")[0].childNodes[0].nodeValue;
+                json_list[obj].Usuario_Docente = x[i].getElementsByTagName("Usuario_Docente")[0].childNodes[0].nodeValue;
+                json_list[obj].Contrasena = x[i].getElementsByTagName("Contrasena")[0].childNodes[0].nodeValue;
+                json_list[obj].Rep_Contrasena = x[i].getElementsByTagName("Rep_Contrasena")[0].childNodes[0].nodeValue;
+                json_list[obj].Estado_Docente = x[i].getElementsByTagName("Estado_Docente")[0].childNodes[0].nodeValue;
+                index = index + 1;
+            }
+
+            x=xmlDoc.getElementsByTagName("Proyectos");
+            index = 1;
+
+            for(var i = 0; i <= (x.length - 1); i++){
+                obj = "Proyectos" + index ;
+                json_list[obj] = { };
+                json_list[obj].Id_Proyecto = x[i].getElementsByTagName("Id_Proyecto")[0].childNodes[0].nodeValue;
+                json_list[obj].Semestre_Proyecto = x[i].getElementsByTagName("Semestre_Proyecto")[0].childNodes[0].nodeValue;
+                json_list[obj].Tiempo_Presupuestado = x[i].getElementsByTagName("Tiempo_Presupuestado")[0].childNodes[0].nodeValue;
+                json_list[obj].Unidad_Tematica = x[i].getElementsByTagName("Unidad_Tematica")[0].childNodes[0].nodeValue;
+                json_list[obj].Titulo_Proyecto = x[i].getElementsByTagName("Titulo_Proyecto")[0].childNodes[0].nodeValue;
+                json_list[obj].Prerrequisitos = x[i].getElementsByTagName("Prerrequisitos")[0].childNodes[0].nodeValue;
+                json_list[obj].Datos_Apoyo_Proyecto = x[i].getElementsByTagName("Datos_Apoyo_Proyecto")[0].childNodes[0].nodeValue;
+                json_list[obj].Objetivos_Proyecto = x[i].getElementsByTagName("Objetivos_Proyecto")[0].childNodes[0].nodeValue;
+                json_list[obj].Enunciado_Proyecto = x[i].getElementsByTagName("Enunciado_Proyecto")[0].childNodes[0].nodeValue;
+                json_list[obj].Preguntas_Guias = x[i].getElementsByTagName("Preguntas_Guias")[0].childNodes[0].nodeValue;
+                json_list[obj].Recursos_Bibliograficos = x[i].getElementsByTagName("Recursos_Bibliograficos")[0].childNodes[0].nodeValue;
+                index = index + 1;
+            }
+
+
+            x=xmlDoc.getElementsByTagName("Asociaciones");
+            index = 1;
+
+            for(var i = 0; i <= (x.length - 1); i++){
+                obj = "Asociaciones" + index ;
+                json_list[obj] = { };
+                json_list[obj].Id_Materia = x[i].getElementsByTagName("Id_Materia")[0].childNodes[0].nodeValue;
+                json_list[obj].Id_Docente = x[i].getElementsByTagName("Id_Docente")[0].childNodes[0].nodeValue;
+                index = index + 1;
+            }
+
+
+            /*var jsonobj = JSON.stringify(json_list);
+            console.log(jsonobj);
+
+            alert(json_list["Materias1"].Id_Materia);
+            alert(json_list["Docentes1"].Id_Docente);
+            alert(json_list["Proyectos1"].Id_Proyecto);
+            alert(json_list["Asociaciones1"].Id_Materia);*/
+
+        };
+
+        var texto = [];
+
+        function guardar(){
+            x=xmlDoc.getElementsByTagName("Materias");
+            var abc = (x.length - 1) + 1;
+
+            obj = "Materias" + abc;
+            json_list[obj] = { };
+            json_list[obj].Id_Materia  = abc; 
+            json_list[obj].Codigo_Materia = $("#txtCodMateria").val();
+            json_list[obj].Nombre_Materia = $("#txtNomMateria").val();
+            json_list[obj].Des_Materia = $("#txtDescripcion").val();
+            json_list[obj].Estado_Materia = 1;
+
+            var contador = 1;
+            texto.push('<?xml version="1.0" encoding="UTF-8" ?>\n');
+          
+
+            while(json_list["Materias" + contador] != undefined){
+
+                var datos = json_list["Materias" + contador];
+  texto.push('<Materias>\n');
+                texto.push('\t<Id_Materia>');
+                texto.push(datos.Id_Materia);
+                
+                texto.push('</Id_Materia>\n');
+                texto.push('\t<Codigo_Materia>')
+                texto.push(datos.Codigo_Materia);
+                texto.push('</Codigo_Materia>\n');
+                texto.push('\t<Nombre_Materia>');
+                texto.push(datos.Nombre_Materia);
+                texto.push('</Nombre_Materia>\n');
+                texto.push('\t<Des_Materia>');
+                texto.push(datos.Des_Materia);
+                texto.push('</Des_Materia>\n');
+                texto.push('\t<Estado_Materia>');
+                texto.push(datos.Estado_Materia);
+                texto.push('</Estado_Materia>\n');
+            
+                
+                contador = contador + 1;
+ texto.push('</Materias>\n');
+                if(json_list["Materias" + contador] == undefined){
+                    break;
+                }
+            }
+
+           
+
+            //No olvidemos especificar el tipo MIME correcto :)
+            var blob = new Blob(texto, {type: 'application/xml'});
+            descargarArchivo(blob,'ProAulaFUSM.xml');
+
+            blob = "";
+            cont = 1;
+            texto = [];
+
+        };
+
+
+        function descargarArchivo(contenidoEnBlob, nombreArchivo) {
+            var reader = new FileReader();
+
+            reader.onload = function (event) {
+                var save = document.createElement('a');
+                save.href = event.target.result;
+                save.target = '_blank';
+                save.download = nombreArchivo || 'archivo.dat';
+                var clicEvent = new MouseEvent('click', {
+                    'view': window,
+                        'bubbles': true,
+                        'cancelable': true
+                });
+                save.dispatchEvent(clicEvent);
+                (window.URL || window.webkitURL).revokeObjectURL(save.href);
+            };
+            reader.readAsDataURL(contenidoEnBlob);
+        };
+
+        
+        function escaparXML(cadena) {
+            if (typeof cadena !== 'string') {
+                return '';
+            };
+            cadena = cadena.replace('&', '&amp;')
+                .replace('<', '&lt;')
+                .replace('>', '&gt;')
+                .replace('"', '&quot;');
+            return cadena;
+        };
+                       
+                        
+
+   
+        $(function () {
+            $("#dialog-confirm").dialog({
+                autoOpen: false,
+                resizable: false,
+                height: 150,
+                modal: true,
+                buttons: {
+                    "Ok": function () {
+                        $("#btnGuardarMateria").removeClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-focus");
+                        $("#txtNomMateria").val("");
+                        $("#txtDescripcion").val("");
+                        $("#txtCodMateria").val("");
+
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            var materia = $("#txtNomMateria"),
+              descripcion = $("#txtDescripcion"),
+              codigo = $("#txtCodMateria"),
+              allFields = $([]).add(materia).add(descripcion).add(codigo),
+              tips = $(".validateTips");
+
+            var id;
+
+            function updateTips(t) {
+                tips.text(t).addClass("ui-state-highlight");
+                setTimeout(function () {
+                    tips.removeClass("ui-state-highlight", 1500);
+                }, 500);
+            }
+
+            function checkLength(o, n, min, max) {
+                if (o.val().length > max || o.val().length < min) {
+                    o.addClass("ui-state-error");
+                    updateTips("La longitud del campo " + n + " debe ser mayor a " + min + " y menor a " + max + ".");
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            function checkRegexp(o, regexp, n) {
+                if (!(regexp.test(o.val()))) {
+                    o.addClass("ui-state-error");
+                    updateTips(n);
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+
+            $("#btnGuardarMateria").button().click(function () {
+                  var bValid = true;
+
+                  allFields.removeClass("ui-state-error");
+
+                  bValid = bValid && checkLength(materia, "Materia", 10, 50);
+                  bValid = bValid && checkLength(descripcion, "Descripcion", 10, 80);
+                  bValid = bValid && checkLength(codigo, "Codigo", 5, 10);
+
+                  bValid = bValid && checkRegexp(materia, /^[a-zA-Z\s]*$/i, "El nombre de la materia solo puede contener letras.");
+
+                  bValid = bValid && checkRegexp(descripcion, /^[a-zA-Z0-9\s]*$/, "La descripción solo puede contener numeros y letras.");
+
+                  bValid = bValid && checkRegexp(codigo, /^([a-zA-Z])+([0-9])+$/, "El código de la materia solo puede contener numeros y letras.");
+
+                  if (bValid) {
+                      $("#lblMat" + id).text($("#txtNomMateria").val());
+                      $("#lblDes" + id).text($("#txtDescripcion").val());
+                      $("#lblCod" + id).text($("#txtCodMateria").val());
+
+                      if ($("#chkEstado").is(':checked')) {
+                          $("#lblEst" + id).attr('checked', true);
+                      } else {
+                          $("#lblEst" + id).attr('checked', false);
+                      }
+
+                      tips.text("");
+                      guardar();
+
+                      $("#dialog-confirm").dialog("open");
+
+                  }
+            });
+
+            $("div.ui-widget-header").addClass("btn-success");
+            $("div.ui-widget-header").removeClass("ui-widget-header");
+            $("#btnGuardarMateria").removeClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only");
+        });
+    </script>
+</head>
+<body>
+    
+      <button type="button" class="btn btn-success btn-xs" id="btnCargarXML" onClick="leer()">
+        <span class="glyphicon glyphicon-plus"></span>Cargar
+    </button>
+ </body>
+    <div class="container">
+        <div class="masthead">
+            <h3 class="text-muted">
+                Proyectos FUSM</h3>
+            <ul class="nav nav-justified">
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Inicio
+                    <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Perfil</a></li>
+                        <li><a href="login.html">Salir</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Materia
+                    <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="crearMaterias.html">Crear</a></li>
+                        <li><a href="consultarMaterias.html">Consultar</a></li>
+                        <li><a href="asociacionMateriasDocente.html">Asociar a Docente</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Proyecto
+                    <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="crearProyecto.html">Crear</a></li>
+                        <li><a href="consultarMaterias.html">Consultar</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Docente
+                    <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="crearDocente.html">Crear</a></li>
+                        <li><a href="consultarDocente.html">Consultar</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Ayuda
+                    <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Tutorial</a></li>
+                        <li><a href="#">Acerca de</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <form class="form-signin">
+        <h3 class="text-muted text-center">
+            Creación de Materias</h3>
+        <p class="validateTips">
+        </p>
+        <input type="text" class="form-control" required="required" placeholder="Codigo"
+            id="txtCodMateria">
+        <input type="text" class="form-control" required="required" placeholder="Nombre"
+            id="txtNomMateria">
+        <textarea type="textDescripcion" id="txtDescripcion" class="form-control" placeholder="Descripción"></textarea>
+        <br>
+        <input type="checkbox" value="true">
+        Activo
+        <input type="checkbox" value="true">
+        Inactivo
+        <p>
+        </p>
+        <center>
+            <button type="button" id="btnGuardarMateria" class="btn btn-success margen" >
+                <span class="glyphicon glyphicon-floppy-disk"></span>Guardar</button>
+        </center>
+        </form>
+        <div id="dialog-confirm" title="Proyectos FUSM">
+            Operación terminada con exito.
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,491 @@
+<!doctype html>
+<html>
+<head>
+    <title>Justified Nav</title>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="jquery-ui.css">
+    <script src="jquery-1102.js"></script>
+    <script src="jquery-ui.js"></script>
+    <style type="text/css">
+        .clsEliminarElemento
+        {
+            border: solid 0px #ccc;
+            background: url('images/eliminar.png') center no-repeat;
+            width: 20px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .clsActualizarElemento
+        {
+            border: solid 0px #ccc;
+            background: url('images/actualizar.png') center no-repeat;
+            width: 20px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        body
+        {
+            padding-top: 20px;
+        }
+        .footer
+        {
+            border-top: 1px solid #eee;
+            margin-top: 40px;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+        /* Main marketing message and sign up button */.jumbotron
+        {
+            text-align: center;
+            background-color: transparent;
+        }
+        .jumbotron .btn
+        {
+            font-size: 21px;
+            padding: 14px 24px;
+        }
+        /* Customize the nav-justified links to be fill the entire space of the .navbar */.nav-justified
+        {
+            background-color: #eee;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .nav-justified > li > a
+        {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            color: #777;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 1px solid #d5d5d5;
+            background-color: #e5e5e5; /* Old browsers */
+            background-repeat: repeat-x; /* Repeat the gradient */
+            background-image: -moz-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%); /* FF3.6+ */
+            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f5f5f5), color-stop(100%, #e5e5e5)); /* Chrome,Safari4+ */
+            background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%); /* Chrome 10+,Safari 5.1+ */
+            background-image: -ms-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%); /* IE10+ */
+            background-image: -o-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%); /* Opera 11.10+ */
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#e5e5e5', GradientType=0); /* IE6-9 */
+            background-image: linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%); /* W3C */
+        }
+        .nav-justified > .active > a, .nav-justified > .active > a:hover, .nav-justified > .active > a:focus
+        {
+            background-color: #ddd;
+            background-image: none;
+            box-shadow: inset 0 3px 7px rgba(0, 0, 0, .15);
+        }
+        .nav-justified > li:first-child > a
+        {
+            border-radius: 5px 5px 0 0;
+        }
+        .nav-justified > li:last-child > a
+        {
+            border-bottom: 0;
+            border-radius: 0 0 5px 5px;
+        }
+        @media (min-width: 768px)
+        {
+            .nav-justified
+            {
+                max-height: 52px;
+            }
+            .nav-justified > li > a
+            {
+                border-left: 1px solid #fff;
+                border-right: 1px solid #d5d5d5;
+            }
+            .nav-justified > li:first-child > a
+            {
+                border-left: 0;
+                border-radius: 5px 0 0 5px;
+            }
+            .nav-justified > li:last-child > a
+            {
+                border-radius: 0 5px 5px 0;
+                border-right: 0;
+            }
+        }
+        /* Responsive: Portrait tablets and up */@media screen and(min-width: 768px)
+        {
+            /* Remove the padding we set earlier */    .masthead, .marketing, .footer
+            {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+        .dropdown-menu
+        {
+            min-width: 180px;
+        }
+        .margen
+        {
+            margin-top: 10px;
+        }
+        .bordeTabla
+        {
+            border-left: 1px solid #fff !important;
+            border-top: 1px solid #fff !important;
+        }
+        .bordeRight
+        {
+            border-right: 1px solid #fff !important;
+        }
+        
+        .ui-dialog .ui-state-error
+        {
+            padding: .3em;
+        }
+        .validateTips
+        {
+            border: 1px solid transparent;
+            padding: 0.3em;
+        }
+    </style>
+    <script>
+        $(function () {
+            var materia = $("#txtNomMateria"),
+            descripcion = $("#txtDescripcion"),
+      codigo = $("#txtCodMateria"),
+      allFields = $([]).add(materia).add(descripcion).add(codigo),
+      tips = $(".validateTips");
+
+            var id;
+
+            function updateTips(t) {
+                tips
+        .text(t)
+        .addClass("ui-state-highlight");
+                setTimeout(function () {
+                    tips.removeClass("ui-state-highlight", 1500);
+                }, 500);
+            }
+
+            function checkLength(o, n, min, max) {
+                if (o.val().length > max || o.val().length < min) {
+                    o.addClass("ui-state-error");
+                    updateTips("La longitud del campo " + n + " debe ser mayor a " +
+          min + " y menor a " + max + ".");
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            function checkRegexp(o, regexp, n) {
+                if (!(regexp.test(o.val()))) {
+                    o.addClass("ui-state-error");
+                    updateTips(n);
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            $("#dialog-form").dialog({
+                autoOpen: false,
+                height: 400,
+                width: 500,
+                modal: true,
+                buttons: {
+                    "Guardar": function () {
+                        var bValid = true;
+
+                        allFields.removeClass("ui-state-error");
+
+                        bValid = bValid && checkLength(materia, "Materia", 10, 50);
+                        bValid = bValid && checkLength(descripcion, "Descripcion", 10, 80);
+                        bValid = bValid && checkLength(codigo, "Codigo", 5, 10);
+
+                        bValid = bValid && checkRegexp(materia, /^[a-zA-Z\s]*$/i, "El nombre de la materia solo puede contener letras.");
+
+                        bValid = bValid && checkRegexp(descripcion, /^[a-zA-Z0-9\s]*$/, "La descripción solo puede contener numeros y letras.");
+
+                        bValid = bValid && checkRegexp(codigo, /^([a-zA-Z])+([0-9])+$/, "El código de la materia solo puede contener numeros y letras.");
+
+                        if (bValid) {
+                            $("#lblMat" + id).text($("#txtNomMateria").val());
+                            $("#lblDes" + id).text($("#txtDescripcion").val());
+                            $("#lblCod" + id).text($("#txtCodMateria").val());
+
+                            if ($("#chkEstado").is(':checked')) {
+                                $("#lblEst" + id).attr('checked', true);
+                            } else {
+                                $("#lblEst" + id).attr('checked', false);
+                            }
+
+                            tips.text("");
+
+                            $(this).dialog("close");
+                        }
+                    },
+                    Cerrar: function () {
+                        $(this).dialog("close");
+                    }
+                },
+                close: function () {
+                    allFields.val("").removeClass("ui-state-error");
+                }
+            });
+
+
+            
+            var operacion = 1;
+             if (window.XMLHttpRequest)
+              {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp=new XMLHttpRequest();
+              }
+            else
+              {// code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+              }
+
+            xmlhttp.open("GET","ProAulaFUSM.xml",false);
+            xmlhttp.send();
+            xmlDoc=xmlhttp.responseXML; 
+
+            var cont = $("#tblMaterias tbody tr").length;
+
+            if(operacion == 1){ //Materias
+                x=xmlDoc.getElementsByTagName("Materias");                
+                for (var i = 0; i < x.length; i++) {
+                    cont = cont + 1;
+
+                    $( "#tblMaterias tbody" ).append( "<tr id='fila" + cont + "'>" + 
+                    "<td  class='text-center'>" +
+                    "<a id='btnActualizar" + cont + "' data-id='" + cont + "' class='clsActualizarElemento'>&nbsp;</a>" +
+                    "</td>" +
+                    "<td  class='text-center'>" +
+                    "<a id='btnEliminar" + cont + "' data-id='" + cont + "' class='clsEliminarElemento'>&nbsp;</a>" +
+                    "</td>" +
+                    "<td>" +
+                    "<span id='lblCod" + cont + "'>" + xmlDoc.getElementsByTagName("Codigo_Materia")[0].childNodes[0].nodeValue + "</span>" +
+                    "</td>" +
+                    "<td>" +
+                    "<span id='lblMat" + cont + "'>" + xmlDoc.getElementsByTagName("Nombre_Materia")[0].childNodes[0].nodeValue + "</span>" +
+                    "</td>" +
+                    "<td>" +
+                    "<span id='lblDes" + cont + "'>" + xmlDoc.getElementsByTagName("Des_Materia")[0].childNodes[0].nodeValue + "</span>" +
+                    "</td>" +
+                    "<td class='text-center'>" +
+                    "<input id='lblEst" + cont + "' type='checkbox' checked='true'>" +
+                    "</td>" +
+                    "</tr>");    
+                }
+
+            /*x=xmlDoc.getElementsByTagName("title")[0].childNodes[0];
+            x.nodeValue="Easy Cooking";
+            x=xmlDoc.getElementsByTagName("title")[0].childNodes[0];
+            txt=x.nodeValue;
+            document.write(txt);*/
+         } 
+
+
+            $("#tblMaterias .clsActualizarElemento")
+      .button()
+      .click(function () {
+          id = $(this).attr('data-id');
+          var txtNomMateria = $("#lblMat" + id).text();
+          var txtDescripcion = $("#lblDes" + id).text();
+          var txtCodigo = $("#lblCod" + id).text();
+
+          $("#txtNomMateria").val(txtNomMateria);
+          $("#txtDescripcion").val(txtDescripcion);
+          $("#txtCodMateria").val(txtCodigo);
+
+          if ($("#lblEst" + id).is(':checked')) {
+              $("#chkEstado").attr('checked', true);
+          } else {
+              $("#chkEstado").attr('checked', false);
+          }
+
+
+          $("#dialog-form").dialog("open");
+      });
+
+            $("#tblMaterias .clsEliminarElemento")
+      .button()
+      .click(
+        function () {
+            id = $(this).attr('data-id');
+            $("#fila" + id).remove();
+        });
+
+
+
+            $("div.ui-dialog-buttonset").find("button").removeClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only");
+            $("div.ui-dialog-buttonset").find("button").addClass("btn btn-success");
+
+
+            $("div.ui-widget-header").addClass("btn-success");
+            $("div.ui-widget-header").removeClass("ui-widget-header");
+
+
+
+
+
+        });
+
+        
+
+    </script>
+
+</head>
+<body>
+    <button type="button" class="btn btn-success btn-xs" id="btnCargarXML">
+        <span class="glyphicon glyphicon-plus"></span>Cargar
+    </button>
+    <div class="container">
+        <div class="masthead">
+            <h3 class="text-muted">
+                Proyectos FUSM</h3>
+            <ul class="nav nav-justified">
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Inicio
+                    <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Perfil</a></li>
+                        <li><a href="login.html">Salir</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Materia
+                    <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="crearMaterias.html">Crear</a></li>
+                        <li><a href="consultarMaterias.html">Consultar</a></li>
+                        <li><a href="asociacionMateriasDocente.html">Asociar a Docente</a></li>
+                    </ul>
+                </li>
+                <li><a href="crearProyecto.html">Proyecto</a> </li>
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Docente
+                    <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="crearDocente.html">Crear</a></li>
+                        <li><a href="consultarDocente.html">Consultar</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Ayuda
+                    <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Tutorial</a></li>
+                        <li><a href="#">Acerca de</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="container">
+            <h3 class="text-muted text-center">
+                Materias</h3>
+            <div class="table-responsive margen">
+                </br>
+                <h4 class="text-muted text-center">
+                    Lista de Materias existentes</h4>
+                <table id="tblMaterias" class="table table-hover table-bordered  table-striped">
+                    <colgroup>
+                        <col class="col-xs-1">
+                        <col class="col-xs-1">
+                        <col class="col-xs-3">
+                        <col class="col-xs-4">
+                        <col class="col-xs-3">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <td class="bordeTabla text-center" colspan="2">
+                                <button type="button" class="btn btn-success btn-xs" onclick="$(location).attr('href','crearMaterias.html');">
+                                    <span class="glyphicon glyphicon-plus"></span>Agregar
+                                </button>
+                            </td>
+                            <th class="text-center">
+                                Código
+                            </th>
+                            <th class="text-center">
+                                Materia
+                            </th>
+                            <th class="text-center">
+                                Descripción
+                            </th>
+                            <th class="text-center">
+                                Estado
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="fila1">
+                            <td class="text-center">
+                                <a id="btnActualizar1" data-id="1" class="clsActualizarElemento">&nbsp;</a>
+                            </td>
+                            <td class="text-center">
+                                <a id="btnEliminar1" data-id="1" class="clsEliminarElemento">&nbsp;</a>
+                            </td>
+                            <td>
+                                <span id="lblCod1">fasdf</span>
+                            </td>
+                            <td>
+                                <span id="lblMat1">asd</span>
+                            </td>
+                            <td>
+                                <span id="lblDes1">fasdf</span>
+                            </td>
+                            <td class="text-center">
+                                <input id="lblEst1" type="checkbox" checked="true">
+                            </td>
+                        </tr>
+                        <tr id="fila2">
+                            <td class="text-center">
+                                <a id="btnActualizar2" data-id="2" class="clsActualizarElemento">&nbsp;</a>
+                            </td>
+                            <td class="text-center">
+                                <a id="btnEliminar2" data-id="2" class="clsEliminarElemento">&nbsp;</a>
+                            </td>
+                            <td>
+                                <span id="lblCod2">g245g34g34g</span>
+                            </td>
+                            <td>
+                                <span id="lblMat2">gadfgdfg</span>
+                            </td>
+                            <td>
+                                <span id="lblDes2">fasert245345df</span>
+                            </td>
+                            <td class="text-center">
+                                <input id="lblEst2" type="checkbox">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="dialog-form" title="Editar Materia">
+            <p class="validateTips">
+            </p>
+            <form>
+            <fieldset>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="codMateria">
+                            Código</label>
+                        <input type="text" name="txtCodMateria" id="txtCodMateria" class="form-control">
+                        <label for="nomMateria">
+                            Materia</label>
+                        <input type="text" name="txtNomMateria" id="txtNomMateria" class="form-control">
+                        <label for="descripcion">
+                            Descripción</label>
+                        <textarea type="text" name="txtDescripcion" id="txtDescripcion" class="form-control"></textarea>
+                        <label for="estado">
+                            Estado</label>
+                        <input type="checkbox" id="chkEstado" value="true" class="text ui-widget-content ui-corner-all">
+                    </div>
+                </div>
+            </fieldset>
+            </form>
+        </div>
+        <!-- Site footer -->
+        <div class="footer">
+            <p>
+                &copy; Company 2014</p>
+        </div>
+    </div>
+    <!-- /container -->
+</body>
+</html>

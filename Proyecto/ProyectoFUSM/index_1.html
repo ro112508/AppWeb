@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+  <head>
+  	<script type="text/javascript">
+  		var operacion = 0;
+  		function xmlToJson( xml ) {	
+
+			if (operacion ==0){
+
+				 if (window.XMLHttpRequest)
+				  {// code for IE7+, Firefox, Chrome, Opera, Safari
+				    xmlhttp=new XMLHttpRequest();
+				  }
+				else
+				  {// code for IE6, IE5
+				    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+				  }
+
+				xmlhttp.open("GET",xml,false);
+				xmlhttp.send();
+				xmlDoc=xmlhttp.responseXML; 
+
+				operacion = 1;
+			}
+
+			var json_list  = { };
+			var obj = "";
+			
+			x=xmlDoc.getElementsByTagName("Materias");
+	
+			for (var i = 0; i < x.length; i++) {
+				obj = "Materias" + i;
+				json_list[obj] = { };
+				json_list[obj].Id_Materia  = x[i].getElementsByTagName("Id_Materia")[0].childNodes[0].nodeValue;
+				json_list[obj].Codigo_Materia  = x[i].getElementsByTagName("Codigo_Materia")[0].childNodes[0].nodeValue;
+				json_list[obj].Nombre_Materia  = x[i].getElementsByTagName("Nombre_Materia")[0].childNodes[0].nodeValue;
+				json_list[obj].Des_Materia  = x[i].getElementsByTagName("Des_Materia")[0].childNodes[0].nodeValue;
+				json_list[obj].Estado_Materia  = x[i].getElementsByTagName("Estado_Materia")[0].childNodes[0].nodeValue;
+			};
+
+			x=xmlDoc.getElementsByTagName("Docentes");
+
+			for(var i = 0; i < x.length; i++){
+				obj = "Docentes" + i;
+				json_list[obj] = { };
+				json_list[obj].Id_Docente = x[i].getElementsByTagName("Id_Docente")[0].childNodes[0].nodeValue;
+				json_list[obj].Nombre_Docente = x[i].getElementsByTagName("Nombre_Docente")[0].childNodes[0].nodeValue;
+				json_list[obj].Apellido_Docente = x[i].getElementsByTagName("Apellido_Docente")[0].childNodes[0].nodeValue;
+				json_list[obj].Telefono_Docente = x[i].getElementsByTagName("Telefono_Docente")[0].childNodes[0].nodeValue;
+				json_list[obj].Email_Docente = x[i].getElementsByTagName("Email_Docente")[0].childNodes[0].nodeValue;
+				json_list[obj].Perfil_Docente = x[i].getElementsByTagName("Perfil_Docente")[0].childNodes[0].nodeValue;
+				json_list[obj].Usuario_Docente = x[i].getElementsByTagName("Usuario_Docente")[0].childNodes[0].nodeValue;
+				json_list[obj].Contrasena = x[i].getElementsByTagName("Contrasena")[0].childNodes[0].nodeValue;
+				json_list[obj].Rep_Contrasena = x[i].getElementsByTagName("Rep_Contrasena")[0].childNodes[0].nodeValue;
+			}
+
+			x=xmlDoc.getElementsByTagName("Proyectos");
+
+			for(var i = 0; i < x.length; i++){
+				obj = "Proyectos" + i;
+				json_list[obj] = { };
+				json_list[obj].Id_Proyecto = x[i].getElementsByTagName("Id_Proyecto")[0].childNodes[0].nodeValue;
+				json_list[obj].Semestre_Proyecto = x[i].getElementsByTagName("Semestre_Proyecto")[0].childNodes[0].nodeValue;
+				json_list[obj].Tiempo_Presupuestado = x[i].getElementsByTagName("Tiempo_Presupuestado")[0].childNodes[0].nodeValue;
+				json_list[obj].Unidad_Tematica = x[i].getElementsByTagName("Unidad_Tematica")[0].childNodes[0].nodeValue;
+				json_list[obj].Titulo_Proyecto = x[i].getElementsByTagName("Titulo_Proyecto")[0].childNodes[0].nodeValue;
+				json_list[obj].Prerrequisitos = x[i].getElementsByTagName("Prerrequisitos")[0].childNodes[0].nodeValue;
+				json_list[obj].Datos_Apoyo_Proyecto = x[i].getElementsByTagName("Datos_Apoyo_Proyecto")[0].childNodes[0].nodeValue;
+				json_list[obj].Objetivos_Proyecto = x[i].getElementsByTagName("Objetivos_Proyecto")[0].childNodes[0].nodeValue;
+				json_list[obj].Enunciado_Proyecto = x[i].getElementsByTagName("Enunciado_Proyecto")[0].childNodes[0].nodeValue;
+				json_list[obj].Preguntas_Guias = x[i].getElementsByTagName("Preguntas_Guias")[0].childNodes[0].nodeValue;
+				json_list[obj].Recursos_Bibliograficos = x[i].getElementsByTagName("Recursos_Bibliograficos")[0].childNodes[0].nodeValue;
+			}
+
+
+			x=xmlDoc.getElementsByTagName("Asociaciones");
+
+			for(var i = 0; i < x.length; i++){
+				obj = "Asociaciones" + i;
+				json_list[obj] = { };
+				json_list[obj].Id_Materia = x[i].getElementsByTagName("Id_Materia")[0].childNodes[0].nodeValue;
+				json_list[obj].Id_Docente = x[i].getElementsByTagName("Id_Docente")[0].childNodes[0].nodeValue;
+			}
+
+
+			var jsonobj = JSON.stringify(json_list);
+			console.log(jsonobj);
+
+			alert(json_list["Materias0"].Id_Materia);
+			alert(json_list["Docentes0"].Id_Docente);
+			alert(json_list["Proyectos0"].Id_Proyecto);
+			alert(json_list["Asociaciones0"].Id_Materia);
+
+		};
+
+
+		function leer(){
+			var objecto = xmlToJson("ProAulaFUSM.xml");
+
+			alert(objecto.materias[0].Nombre_Materia);
+		}
+
+  	</script>
+  </head>
+ <body>
+<button id="btnLeer" onClick="leer()">Leer </button>
+ </body>
+ </html>

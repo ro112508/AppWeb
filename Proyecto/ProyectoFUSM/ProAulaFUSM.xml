@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.example.org/ProAulaFUSM" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/ProAulaFUSM ProAulaFUSM.xsd ">
+	<Materias>
+		<Id_Materia>1</Id_Materia>
+		<Codigo_Materia>NA123456</Codigo_Materia>
+		<Nombre_Materia>Aplicaciones Web</Nombre_Materia>
+		<Des_Materia>Aplicaciones Web DFSGDFGSDFG</Des_Materia>
+		<Estado_Materia>1</Estado_Materia>
+	</Materias>
+	<Materias>
+		<Id_Materia>2</Id_Materia>
+		<Codigo_Materia>NA6427345</Codigo_Materia>
+		<Nombre_Materia>Matematicas aplicadas a la ingenieria</Nombre_Materia>
+		<Des_Materia>Matematicas aplicadas a la ingenieria</Des_Materia>
+		<Estado_Materia>1</Estado_Materia>
+	</Materias>
+	<Materias>
+		<Id_Materia>3</Id_Materia>
+		<Codigo_Materia>NA765384</Codigo_Materia>
+		<Nombre_Materia>Compiladores</Nombre_Materia>
+		<Des_Materia>Compiladores</Des_Materia>
+		<Estado_Materia>1</Estado_Materia>
+	</Materias>
+	<Materias>
+		<Id_Materia>4</Id_Materia>
+		<Codigo_Materia>NA34657234</Codigo_Materia>
+		<Nombre_Materia>Eficiencia de Algoritmos</Nombre_Materia>
+		<Des_Materia>Eficiencia de Algoritmos</Des_Materia>
+		<Estado_Materia>1</Estado_Materia>
+	</Materias>
+	<Materias>
+		<Id_Materia>5</Id_Materia>
+		<Codigo_Materia>NA542374</Codigo_Materia>
+		<Nombre_Materia>Seguridad Informatica</Nombre_Materia>
+		<Des_Materia>Seguridad Informatica</Des_Materia>
+		<Estado_Materia>1</Estado_Materia>
+	</Materias>
+	<Materias>
+		<Id_Materia>6</Id_Materia>
+		<Codigo_Materia>NA25435243</Codigo_Materia>
+		<Nombre_Materia>asdasfasfadfdaf</Nombre_Materia>
+		<Des_Materia>afdfgfdgdfgfdgdg</Des_Materia>
+		<Estado_Materia>1</Estado_Materia>
+	</Materias>
+  <Docentes>
+    <Id_Docente>0</Id_Docente>
+    <Nombre_Docente>Ruben Manrique</Nombre_Docente>
+    <Apellido_Docente>Manrique</Apellido_Docente>
+    <Telefono_Docente>2678909</Telefono_Docente>
+    <Email_Docente>rm@ingenieria.sanmartin.edu.co</Email_Docente>
+    <Perfil_Docente>Excelente</Perfil_Docente>
+    <Usuario_Docente>rmanrique</Usuario_Docente>
+    <Contrasena>rmanrique</Contrasena>
+    <Rep_Contrasena>rmanrique</Rep_Contrasena>
+    <Estado_Docente>1</Estado_Docente>
+  </Docentes>
+  <Docentes>
+    <Id_Docente>1</Id_Docente>
+    <Nombre_Docente>Brayan Hammer</Nombre_Docente>
+    <Apellido_Docente>Rodriguez Sanchez</Apellido_Docente>
+    <Telefono_Docente>3125673232</Telefono_Docente>
+    <Email_Docente>brayan.rodriguez@ingenieria.sanmartin.edu.co</Email_Docente>
+    <Perfil_Docente>Excelente</Perfil_Docente>
+    <Usuario_Docente>brodriguez</Usuario_Docente>
+    <Contrasena>brodriguez</Contrasena>
+    <Rep_Contrasena>brodriguez</Rep_Contrasena>
+    <Estado_Docente>1</Estado_Docente>
+  </Docentes>
+  <Proyectos>
+    <Id_Proyecto>0</Id_Proyecto>
+    <Semestre_Proyecto>Sexto</Semestre_Proyecto>
+    <Tiempo_Presupuestado>180</Tiempo_Presupuestado>
+    <Unidad_Tematica>Aplicaciones web avanzadas</Unidad_Tematica>
+    <Materias>
+		<Id_Materia>1</Id_Materia>
+		<Codigo_Materia>NA123456</Codigo_Materia>
+		<Nombre_Materia>Aplicaciones Web</Nombre_Materia>
+		<Des_Materia>Aplicaciones Web</Des_Materia>
+		<Estado_Materia>1</Estado_Materia>
+	</Materias>
+    <Titulo_Proyecto>Proyectos FUMS</Titulo_Proyecto>
+    <Prerrequisitos>HTML, CCS5, Jquey, JSON</Prerrequisitos>
+    <Datos_Apoyo_Proyecto>HTML, CCS5, Jquey, JSON</Datos_Apoyo_Proyecto>
+    <Objetivos_Proyecto>Desarrollar una pagina web</Objetivos_Proyecto>
+    <Enunciado_Proyecto>Repositorios de Proyectos de aula</Enunciado_Proyecto>
+    <Preguntas_Guias>Que es bootstrap?</Preguntas_Guias>
+    <Recursos_Bibliograficos>Google</Recursos_Bibliograficos>
+  </Proyectos>
+  <Asociaciones>
+    <Id_Materia>Aplicaciones Web</Id_Materia>
+    <Id_Docente>Brayan Hammer Rodriguez Sanchez</Id_Docente>
+  </Asociaciones>
+</data>

@@ -1,0 +1,736 @@
+<!doctype html>
+<html>
+<head>
+    <title>Justified Nav</title>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="jquery-ui.css">
+
+    <script src="jquery-1102.js"></script>
+
+    <script src="jquery-ui.js"></script>
+
+    <style type="text/css">
+        .clsEliminarElemento
+        {
+            border: solid 0px #ccc;
+            background: url('https://public.dm2301.livefilestore.com/y2px4ItM913Ahzs62g3y_pHrqm5t0jl2ymUPhx-zsr6i1BWinHCloVtLX650-jZVO9rmFucObd0Kk2sqApFW93Nm3aT70txfAr0Cuvy0g97GO4/eliminar.png?psid=1') center no-repeat;
+            width: 20px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .clsActualizarElemento
+        {
+            border: solid 0px #ccc;
+            background: url('https://t4cdxq.dm2304.livefilestore.com/y2pJYkXyDGB-5c9IwNmunqqpQ2KNVccx-n5UEpPwk5dGS-Zju4P0K8J9j81Khe18N91M9cG6_wInZBCPqvrSMJUH4UORKKQKzIW_CHhRRbuHVg/actualizar.png?psid=1') center no-repeat;
+            width: 20px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        body
+        {
+            padding-top: 20px;
+        }
+        .footer
+        {
+            border-top: 1px solid #eee;
+            margin-top: 40px;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+        /* Main marketing message and sign up button */.jumbotron
+        {
+            text-align: center;
+            background-color: transparent;
+        }
+        .jumbotron .btn
+        {
+            font-size: 21px;
+            padding: 14px 24px;
+        }
+        /* Customize the nav-justified links to be fill the entire space of the .navbar */.nav-justified
+        {
+            background-color: #eee;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .nav-justified > li > a
+        {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            color: #777;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 1px solid #d5d5d5;
+            background-color: #e5e5e5; /* Old browsers */
+            background-repeat: repeat-x; /* Repeat the gradient */
+            background-image: -moz-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%); /* FF3.6+ */
+            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f5f5f5), color-stop(100%, #e5e5e5)); /* Chrome,Safari4+ */
+            background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%); /* Chrome 10+,Safari 5.1+ */
+            background-image: -ms-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%); /* IE10+ */
+            background-image: -o-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%); /* Opera 11.10+ */
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#e5e5e5', GradientType=0); /* IE6-9 */
+            background-image: linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%); /* W3C */
+        }
+        .nav-justified > .active > a, .nav-justified > .active > a:hover, .nav-justified > .active > a:focus
+        {
+            background-color: #ddd;
+            background-image: none;
+            box-shadow: inset 0 3px 7px rgba(0, 0, 0, .15);
+        }
+        .nav-justified > li:first-child > a
+        {
+            border-radius: 5px 5px 0 0;
+        }
+        .nav-justified > li:last-child > a
+        {
+            border-bottom: 0;
+            border-radius: 0 0 5px 5px;
+        }
+        @media (min-width: 768px)
+        {
+            .nav-justified
+            {
+                max-height: 52px;
+            }
+            .nav-justified > li > a
+            {
+                border-left: 1px solid #fff;
+                border-right: 1px solid #d5d5d5;
+            }
+            .nav-justified > li:first-child > a
+            {
+                border-left: 0;
+                border-radius: 5px 0 0 5px;
+            }
+            .nav-justified > li:last-child > a
+            {
+                border-radius: 0 5px 5px 0;
+                border-right: 0;
+            }
+        }
+        /* Responsive: Portrait tablets and up */@media screen and(min-width: 768px)
+        {
+            /* Remove the padding we set earlier */    .masthead, .marketing, .footer
+            {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+        .dropdown-menu
+        {
+            min-width: 180px;
+        }
+        .margen
+        {
+            margin-top: 10px;
+        }
+        .bordeTabla
+        {
+            border-left: 1px solid #fff !important;
+            border-top: 1px solid #fff !important;
+        }
+        .bordeRight
+        {
+            border-right: 1px solid #fff !important;
+        }
+
+        .ui-dialog .ui-state-error { padding: .3em; }
+        .validateTips { border: 1px solid transparent; padding: 0.3em; }
+    </style>
+
+     <script>
+  $(function() {
+    var nombre = $( "#txtNombres" ),
+      apellido = $( "#txtApellidos" ),
+      perfil = $( "#txtPerfil" ),
+      telefono = $( "#txtTelefono" ),
+      email = $( "#txtEmail" ),
+
+        
+      allFields = $( [] ).add( nombre ).add( apellido ).add( perfil ).add( telefono ).add( email ),
+      tips = $( ".validateTips" );
+
+      var id;
+ 
+    function updateTips( t ) {
+      tips
+        .text( t )
+        .addClass( "ui-state-highlight" );
+      setTimeout(function() {
+        tips.removeClass( "ui-state-highlight", 1500 );
+      }, 500 );
+    }
+ 
+    function checkLength( o, n, min, max ) {
+      if ( o.val().length > max || o.val().length < min ) {
+        o.addClass( "ui-state-error" );
+        updateTips( "La longitud del campo " + n + " debe ser mayor a " +
+          min + " y menor a " + max + "." );
+        return false;
+      } else {
+        return true;
+      }
+    }
+ 
+    function checkRegexp( o, regexp, n ) {
+      if ( !( regexp.test( o.val() ) ) ) {
+        o.addClass( "ui-state-error" );
+        updateTips( n );
+        return false;
+      } else {
+        return true;
+      }
+    }
+ 
+    $( "#dialog-form" ).dialog({
+      autoOpen: false,
+      height: 400,
+      width: 500,
+      modal: true,
+      buttons: {
+        "Guardar": function() {
+          var bValid = true;
+
+          allFields.removeClass( "ui-state-error" );
+ 
+          bValid = bValid && checkLength( nombre, "Nombre", 10, 50 );
+          bValid = bValid && checkLength( apellido, "Apellido", 10, 50 );
+          bValid = bValid && checkLength( perfil, "Descripción", 10, 80 );
+          bValid = bValid && checkLength( telefono, "Telefono", 7, 10 );
+          //bValid = bValid && checkLength( email, "Email", 5, 10 );
+ 
+          bValid = bValid && checkRegexp( nombre, /^[a-zA-Z\s]*$/i, "El nombre del docente solo puede contener letras." );
+
+          bValid = bValid && checkRegexp( apellido, /^[a-zA-Z\s]*$/i, "El apellido del docente solo puede contener letras." );
+         
+          bValid = bValid && checkRegexp( perfil, /^[a-zA-Z0-9\s]*$/, "La descripción del perfil solo puede contener numeros y letras." );
+
+          bValid = bValid && checkRegexp( telefono, /^([0-9])+$/, "El telefono solo puede contener numeros y letras." );
+
+          bValid = bValid && checkRegexp( email, /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/, "El Email no es correcto." );
+ 
+          if ( bValid ) {
+
+            $("#lblNomDocente" + id).text($("#txtNombres").val()); 
+            $("#lblApeDoc" + id).text($("#txtApellidos").val()); 
+            $("#lblPerfilDoc" + id).text($("#txtPerfil").val()); 
+            $("#lblTelDoc" + id).text($("#txtTelefono").val());  
+            $("#lblEmail" + id).text($("#txtEmail").val()); 
+
+            var estadoD = 0;
+            if($("#chkEstado").is(':checked')) {  
+                $("#chkEstado" + id).attr('checked',true);
+                estadoD = 1;
+            }else{
+                $("#chkEstado" + id).attr('checked',false);    
+                estadoD = 0;
+            }
+
+                
+                json_list["Docentes" + id].Nombre_Docente = $("#txtNombres").val();
+                json_list["Docentes" + id].Apellido_Docente = $("#txtApellidos").val();
+                json_list["Docentes" + id].Telefono_Docente = $("#txtTelefono").val();
+                json_list["Docentes" + id].Email_Docente = $("#txtEmail").val();
+                json_list["Docentes" + id].Perfil_Docente = $("#txtPerfil").val();
+                json_list["Docentes" + id].Usuario_Docente = $("#txtUsuario").val();
+                json_list["Docentes" + id].Contrasena = $("#txtContrasena1").val();
+                json_list["Docentes" + id].Rep_Contrasena = $("#txtContrasena2").val();
+                json_list["Docentes" + id].Estado_Docente = estadoD
+
+
+            tips.text("");
+
+            $( this ).dialog( "close" );
+          }
+        },
+        Cerrar: function() {
+          $( this ).dialog( "close" );
+        }
+      },
+      close: function() {
+        allFields.val( "" ).removeClass( "ui-state-error" );
+      }
+    });
+ 
+
+             var operacion = 1;
+             if (window.XMLHttpRequest)
+              {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp=new XMLHttpRequest();
+              }
+            else
+              {// code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+              }
+
+            xmlhttp.open("GET","ProAulaFUSM.xml",false);
+            xmlhttp.send();
+            xmlDoc=xmlhttp.responseXML; 
+
+            var cont = $("#tblDocentes tbody tr").length;
+
+            if(operacion == 1){ //Materias
+                x=xmlDoc.getElementsByTagName("Docentes");                
+                for (var i = 0; i < x.length; i++) {
+                    cont = cont + 1;
+
+                    $( "#tblDocentes tbody" ).append(
+                    "<tr id='fila" + cont + "'>"+
+                            "<td class='text-center'>"+
+                                "<a id='btnActualizar" + cont + "' data-id='"+cont+"' class='clsActualizarElemento'>&nbsp;</a>"+
+                            "</td>"+
+                            "<td class='text-center'>"+
+                                "<a id='btnEliminar" + cont + "'  data-id='"+cont+"'  class='clsEliminarElemento'>&nbsp;</a>"+
+                            "</td>"+
+                            "<td>"+
+                                "<span id='lblNomDocente" + cont + "'>" + xmlDoc.getElementsByTagName("Nombre_Docente")[i].childNodes[0].nodeValue + "</span>"+
+                            "</td>"+
+                            "<td>"+
+                                "<span id='lblApeDoc" + cont + "'>" + xmlDoc.getElementsByTagName("Apellido_Docente")[i].childNodes[0].nodeValue + "</span>"+
+                            "</td>"+
+                            "<td>"+
+                                "<span id='lblPerfilDoc" + cont + "'>" + xmlDoc.getElementsByTagName("Perfil_Docente")[i].childNodes[0].nodeValue + "</span>"+
+                            "</td>"+
+                            "<td>"+
+                                "<span id='lblTelDoc" + cont + "'>" + xmlDoc.getElementsByTagName("Telefono_Docente")[i].childNodes[0].nodeValue + "</span>"+
+                            "</td>"+
+                            "<td>"+
+                                "<span id='lblEmail" + cont + "'>" + xmlDoc.getElementsByTagName("Email_Docente")[i].childNodes[0].nodeValue + "</span>"+
+                            "</td>"+
+                            "<td class='text-center'>"+
+                                "<input id='chkEstado" + cont + "' type='checkbox' value='true'>"+
+                            "</td>"+
+                        "</tr>"
+                    );    
+                }
+
+                        
+
+            /*x=xmlDoc.getElementsByTagName("title")[0].childNodes[0];
+            x.nodeValue="Easy Cooking";
+            x=xmlDoc.getElementsByTagName("title")[0].childNodes[0];
+            txt=x.nodeValue;
+            document.write(txt);*/
+         } 
+
+
+
+    $("#tblDocentes .clsActualizarElemento" )
+      .button()
+      .click(function() {
+            id = $(this).attr('data-id');
+
+
+            var txtNombres = $("#lblNomDocente" + id).text(); 
+            var txtApellidos = $("#lblApeDoc" + id).text();
+            var txtPerfil = $("#lblPerfilDoc" + id).text();
+            var txtTelefono = $("#lblTelDoc" + id).text();
+            var txtEmail = $("#lblEmail" + id).text();
+
+    
+            $("#txtNombres").val(txtNombres);
+            $("#txtApellidos").val(txtApellidos);
+            $("#txtPerfil").val(txtPerfil);
+            $("#txtTelefono").val(txtTelefono);
+            $("#txtEmail").val(txtEmail);
+
+
+            if($("#chkEstado" + id).is(':checked')) {  
+               $("#chkEstado").attr('checked', true);   
+            } else {  
+               $("#chkEstado").attr('checked', false);  
+            }
+                       
+
+        $( "#dialog-form" ).dialog( "open" );
+      });
+
+  $("#tblDocentes .clsEliminarElemento" )
+      .button()
+      .click(
+        function() {
+            id = $(this).attr('data-id');
+             $("#fila" + id).remove();
+      });
+      
+
+
+$("div.ui-dialog-buttonset").find( "button" ).removeClass(
+    "ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only");
+$("div.ui-dialog-buttonset").find( "button" ).addClass("btn btn-success");
+
+
+$("div.ui-widget-header").addClass("btn-success");
+$("div.ui-widget-header").removeClass("ui-widget-header");
+
+
+            
+  });
+
+    </script>
+
+        <script>
+        
+        var operacion = 0;
+        var json_list  = { };
+        var obj = "";
+        var xmlDoc;
+
+        function leer(){
+            var objecto = xmlToJson("ProAulaFUSM.xml");
+        }
+
+        function xmlToJson( xml ) { 
+
+            if (operacion ==0){
+
+                 if (window.XMLHttpRequest)
+                  {// code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp=new XMLHttpRequest();
+                  }
+                else
+                  {// code for IE6, IE5
+                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                  }
+
+                xmlhttp.open("GET",xml,false);
+                xmlhttp.send();
+                xmlDoc=xmlhttp.responseXML; 
+
+                operacion = 1;
+            }
+            
+            x=xmlDoc.getElementsByTagName("Materias");
+
+            var index = 1;
+    
+            for (var i = 0; i < (x.length - 1); i++) {
+                obj = "Materias" + index;
+                json_list[obj] = { };
+                json_list[obj].Id_Materia  = x[i].getElementsByTagName("Id_Materia")[0].childNodes[0].nodeValue;
+                json_list[obj].Codigo_Materia  = x[i].getElementsByTagName("Codigo_Materia")[0].childNodes[0].nodeValue;
+                json_list[obj].Nombre_Materia  = x[i].getElementsByTagName("Nombre_Materia")[0].childNodes[0].nodeValue;
+                json_list[obj].Des_Materia  = x[i].getElementsByTagName("Des_Materia")[0].childNodes[0].nodeValue;
+                json_list[obj].Estado_Materia  = x[i].getElementsByTagName("Estado_Materia")[0].childNodes[0].nodeValue;
+                index = index + 1;
+            };
+
+            x=xmlDoc.getElementsByTagName("Docentes");
+            index = 1;
+
+            for(var i = 0; i <= (x.length - 1); i++){
+                obj = "Docentes" + index;
+                json_list[obj] = { };
+                json_list[obj].Id_Docente = x[i].getElementsByTagName("Id_Docente")[0].childNodes[0].nodeValue;
+                json_list[obj].Nombre_Docente = x[i].getElementsByTagName("Nombre_Docente")[0].childNodes[0].nodeValue;
+                json_list[obj].Apellido_Docente = x[i].getElementsByTagName("Apellido_Docente")[0].childNodes[0].nodeValue;
+                json_list[obj].Telefono_Docente = x[i].getElementsByTagName("Telefono_Docente")[0].childNodes[0].nodeValue;
+                json_list[obj].Email_Docente = x[i].getElementsByTagName("Email_Docente")[0].childNodes[0].nodeValue;
+                json_list[obj].Perfil_Docente = x[i].getElementsByTagName("Perfil_Docente")[0].childNodes[0].nodeValue;
+                json_list[obj].Usuario_Docente = x[i].getElementsByTagName("Usuario_Docente")[0].childNodes[0].nodeValue;
+                json_list[obj].Contrasena = x[i].getElementsByTagName("Contrasena")[0].childNodes[0].nodeValue;
+                json_list[obj].Rep_Contrasena = x[i].getElementsByTagName("Rep_Contrasena")[0].childNodes[0].nodeValue;
+                json_list[obj].Estado_Docente = x[i].getElementsByTagName("Estado_Docente")[0].childNodes[0].nodeValue;
+                index = index + 1;
+            }
+
+            x=xmlDoc.getElementsByTagName("Proyectos");
+            index = 1;
+
+            for(var i = 0; i <= (x.length - 1); i++){
+                obj = "Proyectos" + index ;
+                json_list[obj] = { };
+                json_list[obj].Id_Proyecto = x[i].getElementsByTagName("Id_Proyecto")[0].childNodes[0].nodeValue;
+                json_list[obj].Semestre_Proyecto = x[i].getElementsByTagName("Semestre_Proyecto")[0].childNodes[0].nodeValue;
+                json_list[obj].Tiempo_Presupuestado = x[i].getElementsByTagName("Tiempo_Presupuestado")[0].childNodes[0].nodeValue;
+                json_list[obj].Unidad_Tematica = x[i].getElementsByTagName("Unidad_Tematica")[0].childNodes[0].nodeValue;
+                json_list[obj].Titulo_Proyecto = x[i].getElementsByTagName("Titulo_Proyecto")[0].childNodes[0].nodeValue;
+                json_list[obj].Prerrequisitos = x[i].getElementsByTagName("Prerrequisitos")[0].childNodes[0].nodeValue;
+                json_list[obj].Datos_Apoyo_Proyecto = x[i].getElementsByTagName("Datos_Apoyo_Proyecto")[0].childNodes[0].nodeValue;
+                json_list[obj].Objetivos_Proyecto = x[i].getElementsByTagName("Objetivos_Proyecto")[0].childNodes[0].nodeValue;
+                json_list[obj].Enunciado_Proyecto = x[i].getElementsByTagName("Enunciado_Proyecto")[0].childNodes[0].nodeValue;
+                json_list[obj].Preguntas_Guias = x[i].getElementsByTagName("Preguntas_Guias")[0].childNodes[0].nodeValue;
+                json_list[obj].Recursos_Bibliograficos = x[i].getElementsByTagName("Recursos_Bibliograficos")[0].childNodes[0].nodeValue;
+                index = index + 1;
+            }
+
+
+            x=xmlDoc.getElementsByTagName("Asociaciones");
+            index = 1;
+
+            for(var i = 0; i <= (x.length - 1); i++){
+                obj = "Asociaciones" + index ;
+                json_list[obj] = { };
+                json_list[obj].Id_Materia = x[i].getElementsByTagName("Id_Materia")[0].childNodes[0].nodeValue;
+                json_list[obj].Id_Docente = x[i].getElementsByTagName("Id_Docente")[0].childNodes[0].nodeValue;
+                index = index + 1;
+            }
+
+
+            /*var jsonobj = JSON.stringify(json_list);
+            console.log(jsonobj);
+
+            alert(json_list["Materias1"].Id_Materia);
+            alert(json_list["Docentes1"].Id_Docente);
+            alert(json_list["Proyectos1"].Id_Proyecto);
+            alert(json_list["Asociaciones1"].Id_Materia);*/
+
+        };
+
+        var texto = [];
+
+  function guardar(){
+    if($( ".validateTips" ).text() == ""){
+
+      x=xmlDoc.getElementsByTagName("Docentes");
+      var abc = (x.length - 1) + 1;
+
+      abc = abc + 1;
+
+      /*obj = "Docentes" + abc;
+      json_list[obj] = { };
+      json_list[obj].Id_Docente = abc; 
+      json_list[obj].Nombre_Docente = $("#txtNombres").val(); 
+      json_list[obj].Apellido_Docente = $("#txtApellidos").val();
+      json_list[obj].Telefono_Docente = $("#txtTelefono").val();  
+      json_list[obj].Email_Docente = $("#txtEmail").val(); 
+      json_list[obj].Perfil_Docente = $("#txtPerfil").val(); 
+      json_list[obj].Usuario_Docente = $( "#txtUsuario" ).val();
+      json_list[obj].Contrasena = $("#txtContrasena1" ).val();
+      json_list[obj].Rep_Contrasena = $( "#txtContrasena2" ).val()
+      json_list[obj].Estado_Docente = 1*/
+
+      var contador = 1;
+      texto.push('<?xml version="1.0" encoding="UTF-8" ?>\n');
+      while(json_list["Docentes" + contador] != undefined){
+
+        var datos = json_list["Docentes" + contador];
+        texto.push('<Docentes>\n');
+        texto.push('\t<Id_Docente>');
+        texto.push(datos.Id_Docente);
+        texto.push('</Id_Docente>\n');
+        texto.push('\t<Nombre_Docente>')
+        texto.push(datos.Nombre_Docente);
+        texto.push('</Nombre_Docente>\n');
+        texto.push('\t<Apellido_Docente>');
+        texto.push(datos.Apellido_Docente);
+        texto.push('</Apellido_Docente>\n');
+        texto.push('\t<Telefono_Docente>');
+        texto.push(datos.Telefono_Docente);
+        texto.push('</Telefono_Docente>\n');
+        texto.push('\t<Email_Docente>');
+        texto.push(datos.Email_Docente);
+        texto.push('</Email_Docente>\n');
+        texto.push('\t<Perfil_Docente>');
+        texto.push(datos.Perfil_Docente);
+        texto.push('</Perfil_Docente>\n');
+        texto.push('\t<Usuario_Docente>');
+        texto.push(datos.Usuario_Docente);
+        texto.push('</Usuario_Docente>\n');
+        texto.push('\t<Contrasena>');
+        texto.push(datos.Contrasena);
+        texto.push('</Contrasena>\n');
+        texto.push('\t<Rep_Contrasena>');
+        texto.push(datos.Email_Docente);
+        texto.push('</Rep_Contrasena>\n');
+        texto.push('\t<Estado_Docente>');
+        texto.push(datos.Estado_Docente);
+        texto.push('</Estado_Docente>\n');
+
+
+        contador = contador + 1;
+        texto.push('</Docentes>\n');
+
+        if(json_list["Docentes" + contador] == undefined){
+          break;
+        }
+      }
+      //No olvidemos especificar el tipo MIME correcto :)
+      var blob = new Blob(texto, {type: 'application/xml'});
+      descargarArchivo(blob,'ProAulaFUSM.xml');
+
+      blob = "";
+      cont = 1;
+      texto = [];
+    }
+  };
+
+
+        function descargarArchivo(contenidoEnBlob, nombreArchivo) {
+            var reader = new FileReader();
+
+            reader.onload = function (event) {
+                var save = document.createElement('a');
+                save.href = event.target.result;
+                save.target = '_blank';
+                save.download = nombreArchivo || 'archivo.dat';
+                var clicEvent = new MouseEvent('click', {
+                    'view': window,
+                        'bubbles': true,
+                        'cancelable': true
+                });
+                save.dispatchEvent(clicEvent);
+                (window.URL || window.webkitURL).revokeObjectURL(save.href);
+            };
+            reader.readAsDataURL(contenidoEnBlob);
+        };
+
+        
+        function escaparXML(cadena) {
+            if (typeof cadena !== 'string') {
+                return '';
+            };
+            cadena = cadena.replace('&', '&amp;')
+                .replace('<', '&lt;')
+                .replace('>', '&gt;')
+                .replace('"', '&quot;');
+            return cadena;
+        };
+                       
+    </script>
+</head>
+<body>
+    <button type="button" class="btn btn-success btn-xs" id="btnCargarXML" onClick="leer()">
+        <span class="glyphicon glyphicon-plus"></span>Cargar
+    </button>
+    <button type="button" class="btn btn-success btn-xs" id="btnDescargarXML" onClick="guardar()">
+        <span class="glyphicon glyphicon-plus"></span>Descargar
+    </button>
+    <div class="container">
+        <div class="masthead">
+            <h3 class="text-muted">
+                Proyectos FUSM</h3>
+            <ul class="nav nav-justified">
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Inicio
+                    <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Perfil</a></li>
+						<li><a href="login.html">Salir</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Materia
+                    <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="crearMaterias.html">Crear</a></li>
+                        <li><a href="consultarMaterias.html">Consultar</a></li>
+                        <li><a href="asociacionMateriasDocente.html">Asociar a Docente</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+            	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Proyecto <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="crearProyecto.html">Crear</a></li>
+                  <li><a href="consultarMaterias.html">Consultar</a></li>
+                </ul></li>
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Docente
+                    <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="crearDocente.html">Crear</a></li>
+                        <li><a href="consultarDocente.html">Consultar</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Ayuda
+                    <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Tutorial</a></li>
+                        <li><a href="#">Acerca de</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="container">
+            <h3 class="text-muted text-center">
+                Docentes</h3>
+            <div class="table-responsive margen">
+                </br>
+                <h4 class="text-muted text-center">
+                    Lista de Docentes existentes</h4>
+                <table id="tblDocentes" class="table table-hover table-bordered  table-striped">
+                    <colgroup>
+                        <col class="col-xs-1">
+                        <col class="col-xs-1">
+                        <col class="col-xs-3">
+                        <col class="col-xs-4">
+                        <col class="col-xs-3">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <td class="bordeTabla text-center" colspan="2">
+                                <button type="button" class="btn btn-success btn-xs"  onclick="$(location).attr('href','crearDocente.html');">
+                                    <span class="glyphicon glyphicon-plus"></span>Agregar
+                                </button>
+                            </td>
+                            <th class="text-center">
+                                Nombre
+                            </th>
+                            <th class="text-center">
+                                Apellido
+                            </th>
+                            <th class="text-center">
+                                Perfil
+                            </th>
+                            <th class="text-center">
+                                Telefono
+                            </th>
+                            <th class="text-center">
+                                Email
+                            </th>
+                            <th class="text-center">
+                                Estado
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="dialog-form" title="Editar Docente">
+            <p class="validateTips">
+                All form fields are required.</p>
+            <form>
+                <fieldset>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="nombres">
+                                Nombres</label>
+                            <input type="text" name="txtNombres" id="txtNombres" class="form-control">
+                            <label for="apellido">
+                                Apellidos</label>
+                            <input type="text" name="txtApellidos" id="txtApellidos" class="form-control">
+                            <label for="perfil">
+                                Descripción</label>
+                            <textarea type="text" name="txtPerfil" id="txtPerfil" class="form-control"></textarea>
+                            <label for="telefono">
+                                Telefono</label>
+                            <input type="text" name="txtTelefono" id="txtTelefono" class="form-control">
+                            <label for="email">
+                                Email</label>
+                            <input type="text" name="txtEmail" id="txtEmail" class="form-control">
+                            <label for="estado">
+                                Estado</label>
+                            <input type="checkbox" id="chkEstado" value="true" class="text ui-widget-content ui-corner-all">
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+       
+        <!-- Site footer -->
+        <div class="footer">
+            <p>
+                &copy; Company 2014</p>
+        </div>
+    </div>
+    <!-- /container -->
+</body>
+</html>
